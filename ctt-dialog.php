@@ -9,18 +9,18 @@ if(empty($check_token)){
 	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> for sign-in.";
 	return;
 }
-$plug_url 	= plugins_url()."/clicktotweetcom/";
+$plug_url 	= plugins_url() . '/click-to-tweet/';
 $setting 	= get_option('ctt_settings');
 $permalink = $_REQUEST['permalink'];
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 	<head>
-		<title>Click To Tweet WordPress Plugin</title>
+		<title>Click To Tweet Plugin</title>
 		<link rel="stylesheet"  href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type='text/css' media='all' />
-		<script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script language="javascript" type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 		<script>
 			function ctt_count_char(val) {
 		        var len = val.value.length;
@@ -53,16 +53,16 @@ $permalink = $_REQUEST['permalink'];
 
 		</script>
 		<?php
-			if(function_exists('wp_enqueue_media')){
-				do_action('admin_print_styles');
-				do_action('admin_print_scripts');
-				do_action('admin_head');
-				wp_enqueue_media();
-			}else{
-				wp_enqueue_style('thickbox');
-				wp_enqueue_script('media-upload');
-				wp_enqueue_script('thickbox');
-			}
+//			if(function_exists('wp_enqueue_media')){
+//				do_action('admin_print_styles');
+//				do_action('admin_print_scripts');
+//				do_action('admin_head');
+//				wp_enqueue_media();
+//			}else{
+//				wp_enqueue_style('thickbox');
+//				wp_enqueue_script('media-upload');
+//				wp_enqueue_script('thickbox');
+//			}
 		?>
 <script language="javascript" type="text/javascript">
 function arc_tpl(e){
@@ -317,8 +317,7 @@ function stripslashes (str) {
 
 							<div>
 							<input type="checkbox" name="ctt-nofollow" id="ctt-nofollow" value="1" title="Select in order to make links nofollow and not to count some of their links to other pages">
-							<label for="ctt-nofollow" title="Select in order to make links nofollow and not to count some of their links to other pages">Make Links Nofollow</label>
-							<input style="margin-left:20px" value="1" checked="checked" name="links" id="links" class="hidden-field" type="checkbox">
+							<input style="display: none;" value="1" checked="checked" name="links" id="links" class="hidden-field" type="checkbox">
 							<label for="links">Shorten Links</label>
 							<span class="mf-settings">
 								<span>Need to switch accounts or edit settings?</span><a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">MODIFY SETTINGS</a>
@@ -395,7 +394,7 @@ function stripslashes (str) {
 											<label>
 												<p class="td_">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
 												<span class="click-to-tweet"> <span><i></i>CLICK TO TWEET</span> </span>
-												<input type="radio" name="designBOX1" value="1">
+												<input type="radio" name="designBOX1" value="1" checked>
 												<span class="select"> </span></label>
 										</div>
 
@@ -503,38 +502,36 @@ function stripslashes (str) {
 									<div id="tab-2" class="tab-content">
 										<?php $hb_opt = get_option('ctt_hint_box'); ?>
 										<div class="box-design hint-box">
-										<div class="hint-box-container">
-										<label>
-										<p>Don't read this text. It is here just to represent
-										<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background']. "-type color_".$hb_opt['color']; ?>">
-										<span class="click-text_hint">an example of any article on your blog. So this is kinda the paragraph of usual text in your article and what you see below is the "tweet box" created by CTT plugin.  <i> </i> </span><span class="tweetdis_hint_icon"></span> </a></span>
-										</p><input type="radio" name="designBOX2" value="1"><span class="select"></span>
-										</label>
-										</div>
+											<div class="hint-box-container">
+											<label>
+											<p>Don't read this text. It is here just to represent
+											<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background']. "-type color_".$hb_opt['color']; ?>">
+											<span class="click-text_hint">an example of any article on your blog. So this is kinda the paragraph of usual text in your article and what you see below is the "tweet box" created by CTT plugin.  <i> </i> </span><span class="tweetdis_hint_icon"></span> </a></span>
+											</p><input type="radio" name="designBOX2" value="1"><span class="select"></span>
+											</label>
+											</div>
 										</div>
 									</div>
 									<div id="tab-3" class="tab-content">
 										<input type=hidden id="tweet-thumb-id" name="tweet-thumb-id" value="">
-										<a class="browse-theme" href="javascript:void(0)" onclick="return tw_image_uploader(this);">Upload Image First</a>
-										<br />
 
 										<div id="testerup"></div>
 										<div class="tweet-box image-box first-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="1">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box second-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="2">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box third-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="3">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> <span class="ctt_action">Tweet</span> </span>
@@ -542,21 +539,21 @@ function stripslashes (str) {
 
 										<div class="clear"></div>
 										<div class="tweet-box image-box fourth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="4">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> <span class="ctt_action">Tweet</span> </span>
 										</div>
 
 										<div class="tweet-box image-box fifth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="5">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link btn_original"> <i></i><span class="click_action">Click To Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box sixth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image" />
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="6">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link btn_original"> <i></i><span class="click_action">Click To Tweet</span></a> </span>
@@ -569,7 +566,7 @@ function stripslashes (str) {
 									<input type="text" name="ctt-author-name" id="ctt-author-name" value="" placeholder="Enter Author Name">
 									</div>
 									<a class="browse-theme" href="javascript:void(0)" onclick="return author_image_uploader(this);">Upload Author Image</a>
-									<br />
+									<br>
 									<div class="auth-box-one">
 										<div id="col-pe-13" class="col-preview">
 										<label>
@@ -644,17 +641,15 @@ function stripslashes (str) {
 								</div>
 							</div>
 						</div>
-						<div id="row-insert-btn" class="buttons">
-							<input id="ctt-insert-button" type="submit" value="Insert New CTT" name="submit" class="button button-primary button-large">
-							<a href="javascript:void(0);" id="cancel-ctt-theme" class="button on-browse-click">Cancel Theme</a>
-						</div>
+						<input id="ctt-insert-button" type="submit" value="Insert New CTT" name="submit" class="button button-primary button-large">
+						<a href="javascript:void(0);" id="cancel-ctt-theme" class="button on-browse-click">Cancel Theme</a>
 					</form>
 				</div>
 			</div>
 		</div>
 		<?php
 		do_action('admin_print_footer_scripts');
-		do_action('admin_footer');
+//		do_action('admin_footer');
 		?>
 	</body>
 </html>
