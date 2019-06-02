@@ -12,13 +12,14 @@ if (empty($check_token)) {
 $plug_url = plugins_url() . '/click-to-tweet/';
 $setting = get_option('ctt_settings');
 $permalink = $_REQUEST['permalink'];
+$post_id = $_GET['post_id'] ?? '';
 
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
 		<title>Click To Tweet Plugin</title>
-		<link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type="text/css">
+		<link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>css/design-box-style.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="<?php echo get_site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 		<script>
@@ -182,31 +183,26 @@ $permalink = $_REQUEST['permalink'];
 					};
 					$.post("<?php bloginfo('url'); ?>/wp-admin/admin-ajax.php", data, function(response) {
 						const ctt = jQuery.parseJSON(response);
-
-						const via_text = ($("#snd-via").is(":checked")) ? "via=\"yes\"" : "via=\"no\"";
-
+						const via_text = $("#snd-via").is(":checked") ? "via=\"yes\"" : "via=\"no\"";
 						let ctt_flow = "";
-						if (($("#ctt-nofollow").is(':checked'))) {
-							ctt_flow = "nofollow=\"yes\"";
-						}
 
 						ctt.title = stripslashes(ctt.title);
 
-						if (idCount == 1){
+						if (idCount == 1) {
 							res = '[ctt template="'+ valselected +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt]';
 						} else if(idCount == 2){
 							res = '[ctt_hbox link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.tweet+'[/ctt_hbox]';
-						} else if((idCount == 3) && (typeof(ctt.thumb_id) !="undefined")){
+						} else if((idCount == 3) && (typeof(ctt.thumb_id) != "undefined")){
 							res = '[ctt_ibox thumb="' + ctt.thumb_id + '" template="'+ valselected +'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt_ibox]';
-						} else if((idCount == 4) && (typeof(ctt.author) !="undefined")){
+						} else if((idCount == 4) && (typeof(ctt.author) != "undefined")){
 							res = '[ctt_author author="' + ctt.author + '" name="'+auth_name+'" template="'+ valselected +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt_author]';
 						}
 
 						if (rec_selected != "") {
 							rec_type = rec_selected.split("-");
-							if(rec_type[0] == "box"){
+							if (rec_type[0] == "box") {
 								res = '[ctt template="'+ rec_type[1] +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt]';
-							}else{
+							} else {
 								res = '[ctt_hbox link="'+ctt.coverup+'" '+ctt_flow+']'+ctt.title+'[/ctt_hbox]';
 							}
 						}
@@ -229,35 +225,35 @@ $permalink = $_REQUEST['permalink'];
 		});
 	});
 
-	function stripslashes(str) {
-		// + original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// + improved by: Ates Goral (http://magnetiq.com)
-		// + fixed by: Mick@el
-		// + improved by: marrtins
-		// + bugfixed by: Onno Marsman
-		// + improved by: rezna
-		// + input by: Rick Waldron
-		// + reimplemented by: Brett Zamir (http://brett-zamir.me)
-		// + input by: Brant Messenger (http://www.brantmessenger.com/)
-		// + bugfixed by: Brett Zamir (http://brett-zamir.me)
-		// * example 1: stripslashes('Kevin\'s code');
-		// * returns 1: "Kevin's code"
-		// * example 2: stripslashes('Kevin\\\'s code');
-		// * returns 2: "Kevin\'s code"
-		return (str + '').replace(/\\(.?)/g, function(s, n1) {
-			switch (n1) {
-			case '\\':
-				return '\\';
-			case '0':
-				return '\u0000';
-			case '':
-				return '';
-			default:
-				return n1;
-			}
-		});
-	}
-</script>
+		function stripslashes(str) {
+			// + original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+			// + improved by: Ates Goral (http://magnetiq.com)
+			// + fixed by: Mick@el
+			// + improved by: marrtins
+			// + bugfixed by: Onno Marsman
+			// + improved by: rezna
+			// + input by: Rick Waldron
+			// + reimplemented by: Brett Zamir (http://brett-zamir.me)
+			// + input by: Brant Messenger (http://www.brantmessenger.com/)
+			// + bugfixed by: Brett Zamir (http://brett-zamir.me)
+			// * example 1: stripslashes('Kevin\'s code');
+			// * returns 1: "Kevin's code"
+			// * example 2: stripslashes('Kevin\\\'s code');
+			// * returns 2: "Kevin\'s code"
+			return (str + '').replace(/\\(.?)/g, function(s, n1) {
+				switch (n1) {
+				case '\\':
+					return '\\';
+				case '0':
+					return '\u0000';
+				case '':
+					return '';
+				default:
+					return n1;
+				}
+			});
+		}
+	</script>
 	</head>
 	<body>
 	<?php
@@ -284,21 +280,20 @@ $permalink = $_REQUEST['permalink'];
 							<label for="title" class="textarea-label">Message to be displayed in blog post</label>
 							<textarea name="title" id="title" rows="2"></textarea>
 							<div>
-								<input type="checkbox" name="send-via" id="snd-via" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Select to append Twitter Username into your tweet">
-								<label for="snd-via" title="Select to append Twitter Username into your tweet">Include Twitter username
+								<input type="checkbox" name="send-via" id="snd-via" value="1" data-handler="<?php echo $setting['ctt-handler'] ?? ''; ?>" title="Select to append Twitter Username into your tweet">
+								<label for="snd-via" title="Select to append your Twitter username to your tweet">Include Twitter username
 									<span class="empty-handler">(The username was not found. <a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">Click here</a> to manage your Twitter Username)</span>
 								</label>
 							</div>
 							<div>
-								<input type="checkbox" name="inc-ref" id="inc-ref" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Include link back to blog post">
-								<label for="inc-ref" title="Select to append Twitter Username into your tweet">Include link back to blog post</label>
-								<input style="width:310px" type="text" name="inc-ref-url" id="inc-ref-url" value="<?php echo $permalink; ?>" data-handler="<?php echo $setting['ctt-handler'] ?? ''; ?>">
+								<input type="checkbox" name="include_ref_link" id="include-ref" value="1" data-handler="<?php echo $setting['ctt-handler'] ?? ''; ?>" title="Include link back to blog post">
+								<label for="include-ref" title="Select to append Twitter Username into your tweet">Include a link back to the blog post</label>
+								<input type="hidden" name="ref_url_post_id" value="<?php echo $post_id; ?>">
 							</div>
-							<div>
-								<input type="checkbox" name="ctt-nofollow" id="ctt-nofollow" value="1" title="Select in order to make links nofollow and not to count some of their links to other pages">
-								<input style="display: none;" value="1" checked="checked" name="links" id="links" class="hidden-field" type="checkbox">
-								<label for="links">Shorten links</label>
-							</div>
+							<!-- <div>
+								<input type="checkbox" name="ctt-shorten-links" id="ctt-shorten-links" value="1" title="Select this to make links nofollow and not to count some of their links to other pages">
+								<label for="ctt-shorten-links">Shorten links</label>
+							</div> -->
 							<p class="edit-settings">
 								<a href="<?php echo admin_url(); ?>options-general.php?page=ctt" target="_parent">Switch accounts or edit settings</a>
 							</p>

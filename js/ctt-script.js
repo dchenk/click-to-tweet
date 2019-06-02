@@ -1,31 +1,31 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
     const prev_hbox_type = $("#ctt-prev-hintbox").attr("data-design");
     if (prev_hbox_type) {
         let hbox_type = "";
         if (prev_hbox_type == "background") {
             hbox_type = 0;
-        } else if(prev_hbox_type == "underline") {
+        } else if (prev_hbox_type == "underline") {
             hbox_type = 1;
             $(".row.hbox-colvar").hide();
-        } else if(prev_hbox_type == "highlighted") {
+        } else if (prev_hbox_type == "highlighted") {
             hbox_type = 2;
             $(".row.hbox-colvar").hide();
         }
-        $('select[name=hbox-type] > option').eq(hbox_type).attr('selected', 'selected');
+        $("select[name=hbox-type] > option").eq(hbox_type).attr("selected", true);
     }
 
     /*Box Design Template Setting*/
-    $("#templ-select option:eq(0)").prop('selected', true);
+    $("#templ-select option:eq(0)").prop("selected", true);
     $("#templ-select, #author-select").change(function(){
         $("input[name=cta-txt]").val("Click To Tweet");
-        var ind = $(this).val();
-        var pre_size    = $("#col-pe-"+ind+"").attr("data-fsize");
-        var cta         = $("#col-pe-"+ind+" span.cta-pr").attr("data-cta");
-        if(cta){
+        const ind = $(this).val();
+        var pre_size = $("#col-pe-"+ind+"").attr("data-fsize");
+        var cta = $("#col-pe-"+ind+" span.cta-pr").attr("data-cta");
+        if (cta) {
             $("input[name=cta-txt]").val(cta);
         }
 
-        if(pre_size){
+        if (pre_size) {
                 size_index = "";
             if(pre_size == "original"){
                 size_index = 0;
@@ -48,16 +48,14 @@ jQuery(document).ready(function($){
             }
             });
             $(".txt-color-opt").show();
-        }else{
+        } else {
             $(".txt-color-opt").hide();
         }
-        var selected_tpl = $(this).val();
-        $(".set-output .col-preview").each(function(){
+        $(".set-output .col-preview").each(function() {
             $(this).hide();
             $("#col-pe-"+ind+".col-preview").show();
         })
     });
-
 
     $("input[name=cta-txt]").bind("change paste keyup", function() {
         var _sel_template = $("#templ-select").val();
@@ -75,7 +73,7 @@ jQuery(document).ready(function($){
         $(this).addClass("active");
 
         var tpl = "#col-pe-"+$("#templ-select").val();
-        var color = "ctt-color-"+$(this).attr('data-val');
+        const color = "ctt-color-"+$(this).attr('data-val');
 
         if($(tpl+" .tweet-box").hasClass("ctt-color-0") || $(tpl+" .tweet-box").hasClass("ctt-color-1") || $(tpl+" .tweet-box").hasClass("ctt-color-2")){
             $(tpl+" .tweet-box").removeClass("ctt-color-0");
@@ -89,28 +87,28 @@ jQuery(document).ready(function($){
     });
 
     $("select[name=ctt-font]").change(function(){
-        var tpl = $("#templ-select").val();
-        var val = "ctt-font-"+$(this).val();
-            var ch_font = "#col-pe-"+tpl;
-            $(ch_font+" p").attr('class', '');
-            $(ch_font+" p").addClass(val);
+        const tpl = $("#templ-select").val();
+        const val = "ctt-font-"+$(this).val();
+        const ch_font = "#col-pe-"+tpl;
+        $(ch_font+" p").attr('class', '');
+        $(ch_font+" p").addClass(val);
     });
 
     $("select[name=auth-ctt-font]").change(function(){
-        var tpl = $("#author-select").val();
-        var val = "ctt-font-"+$(this).val();
-            var ch_font = "#col-pe-"+tpl;
-            $(ch_font+" p").attr('class', '');
-            $(ch_font+" p").addClass(val);
+        const tpl = $("#author-select").val();
+        const val = "ctt-font-"+$(this).val();
+        const ch_font = "#col-pe-"+tpl;
+        $(ch_font+" p").attr('class', '');
+        $(ch_font+" p").addClass(val);
     });
 
 
     /*Image Box Template Setting*/
     $("#ibox-tpl option:eq(0)").prop('selected', true);
     $("#ibox-tpl").change(function(){
-        var itpl = $(this).val();
-        var cta_text    = $("#ctt-pre-img-"+itpl).attr("data-cta");
-        var btnsize     = $("#ctt-pre-img-"+itpl).attr("data-btnsize");
+        const itpl = $(this).val();
+        const cta_text    = $("#ctt-pre-img-"+itpl).attr("data-cta");
+        const btnsize     = $("#ctt-pre-img-"+itpl).attr("data-btnsize");
         var btn_pos     = $("#ctt-pre-img-"+itpl).attr("data-position");
         var onhover     = $("#ctt-pre-img-"+itpl).attr("data-onhover");
 
