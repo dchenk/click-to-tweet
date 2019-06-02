@@ -1,5 +1,5 @@
 <?php
-$plug_url = plugins_url()."/clicktotweetcom/";
+$plug_url = plugins_url() . '/click-to-tweet/';
 $ic_data = get_option('ctt_image_setting');
 ?>
 <div class="ctt-setting-container dis-hint">
@@ -97,70 +97,66 @@ $ic_data = get_option('ctt_image_setting');
 		</div>
 	</div>
     <div class="ctt-right form_settings set-settings">
-            <div class="ctt-loader"></div>
-            <h3>Settings:</h3>
-            <form method="post" onsubmit="return save_image_box_setting(this);" data-ajxurl="<?php bloginfo('url'); ?>/wp-admin/admin-ajax.php">
-            <div class="ctt_form_row">
-                <label for="image_design">Design template:</label>
-                    <div class="select">
-                        <select name="ibox-tpl" id="ibox-tpl">
-                            <option selected="" value="1">Template 1</option>
-                            <option value="2">Template 2</option>
-                            <option value="3">Template 3</option>
-                            <option value="4">Template 4</option>
-                            <option value="5">Template 5</option>
-                            <option value="6">Template 6</option>
-                        </select>
-                    </div>
-            </div>
-
-            <div class="ctt_form_row">
-            <label for="button_size">Button Size:</label>
-            <div class="select">
-            <select name="ibox-button">
-                <option value="original" <?php echo ($this->get_ibox_data($ic_data, 1,'button_size') == "original") ? "selected" : ""; ?>>Original</option>
-                <option value="large" <?php echo ($this->get_ibox_data($ic_data, 1,'button_size') == "large") ? "selected" : ""; ?>>Large</option>
-            </select>
-            </div>
-            </div>
-
-            <div class="ctt_form_row">
-                <label for="position">Position:</label>
+        <div class="ctt-loader"></div>
+        <h3>Settings</h3>
+        <form method="post" onsubmit="return save_image_box_setting(this);" data-ajxurl="<?php bloginfo('url'); ?>/wp-admin/admin-ajax.php">
+        <div class="ctt_form_row">
+            <label for="image_design">Design template:</label>
                 <div class="select">
-                    <select name="ibox-position">
-                        <option value="center" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "center") ? "selected" : ""; ?>>Center</option>
-                        <option value="bottom_right" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "bottom_right") ? "selected" : ""; ?>>Bottom right</option>
-                        <option value="top_right" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "top_right") ? "selected" : ""; ?>>Top right</option>
+                    <select name="ibox-tpl" id="ibox-tpl">
+                        <option selected="" value="1">Template 1</option>
+                        <option value="2">Template 2</option>
+                        <option value="3">Template 3</option>
+                        <option value="4">Template 4</option>
+                        <option value="5">Template 5</option>
+                        <option value="6">Template 6</option>
                     </select>
                 </div>
+        </div>
+        <div class="ctt_form_row">
+            <label for="button_size">Button Size:</label>
+            <div class="select">
+                <select name="ibox-button">
+                    <option value="original" <?php echo ($this->get_ibox_data($ic_data, 1,'button_size') == "original") ? "selected" : ""; ?>>Original</option>
+                    <option value="large" <?php echo ($this->get_ibox_data($ic_data, 1,'button_size') == "large") ? "selected" : ""; ?>>Large</option>
+                </select>
             </div>
-
-            <div class="ctt_form_row">
-                <label for="hover_action">Hover action:</label>
-                    <div class="select">
-                        <select name="ibox-hover">
-                            <option value="no_hover_action" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "no_hover_action") ? "selected" : ""; ?>>No hover action</option>
-                            <option value="light" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "light") ? "selected" : ""; ?>>Light</option>
-                            <option value="dark" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "dark") ? "selected" : ""; ?>>Dark</option>
-                            <option value="pattern" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "pattern") ? "selected" : ""; ?>>Pattern</option>
-                            <option value="zoom" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "zoom") ? "selected" : ""; ?>>Zoom</option>
-                        </select>
-                    </div>
+        </div>
+        <div class="ctt_form_row">
+            <label for="position">Position:</label>
+            <div class="select">
+                <select name="ibox-position">
+                    <option value="center" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "center") ? "selected" : ""; ?>>Center</option>
+                    <option value="bottom_right" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "bottom_right") ? "selected" : ""; ?>>Bottom right</option>
+                    <option value="top_right" <?php echo ($this->get_ibox_data($ic_data, 1,'position') == "top_right") ? "selected" : ""; ?>>Top right</option>
+                </select>
             </div>
-            <div class="ctt_form_row">
-                <label for="action">Call to action:</label>
-                <div class="input_wrap">
-                    <input type="text" value="<?php echo ($this->get_ibox_data($ic_data, 1,'callforaction')) ? $this->get_ibox_data($ic_data, 1,'callforaction') : "Tweet"; ?>" id="action" name="ibox-cta"
-                    placeholder="Enter Button Text">
-                    <p class="input_comment">We recommend you to use short phrases</p>
-                </div>
-
+        </div>
+        <div class="ctt_form_row">
+            <label for="hover_action">Hover action:</label>
+            <div class="select">
+                <select name="ibox-hover">
+                    <option value="no_hover_action" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "no_hover_action") ? "selected" : ""; ?>>No hover action</option>
+                    <option value="light" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "light") ? "selected" : ""; ?>>Light</option>
+                    <option value="dark" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "dark") ? "selected" : ""; ?>>Dark</option>
+                    <option value="pattern" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "pattern") ? "selected" : ""; ?>>Pattern</option>
+                    <option value="zoom" <?php echo ($this->get_ibox_data($ic_data, 1,'hover_action') == "zoom") ? "selected" : ""; ?>>Zoom</option>
+                </select>
             </div>
-            <div class="ctt_form_row">
-                <button id="save_settings">Save All Changes</button>
-                <p class="input_comment saved"></p>
+        </div>
+        <div class="ctt_form_row">
+            <label for="action">Call to action:</label>
+            <div class="input_wrap">
+                <input type="text" value="<?php echo ($this->get_ibox_data($ic_data, 1,'callforaction')) ? $this->get_ibox_data($ic_data, 1,'callforaction') : "Tweet"; ?>" id="action" name="ibox-cta"
+                placeholder="Enter Button Text">
+                <p class="input_comment">We recommend you to use short phrases</p>
             </div>
-            </form>
-            <div class="resp_ajx"></div>
+        </div>
+        <div class="ctt_form_row">
+            <button id="save_settings">Save All Changes</button>
+            <p class="input_comment saved"></p>
+        </div>
+        </form>
+        <div class="resp_ajx"></div>
     </div>
 </div>

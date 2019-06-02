@@ -1,9 +1,9 @@
 <?php
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
-	die ;
+	die;
 }
-$plug_url = plugins_url()."/clicktotweetcom/";
+$plug_url = plugins_url() . '/click-to-tweet/';
 $bopt = get_option('ctt_box_setting');
 ?>
 <div class="dis-hint">
