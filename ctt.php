@@ -2,7 +2,7 @@
 /*
 Plugin Name: Click To Tweet Plugin
 Description: This plugin integrates with the Click To Tweet web app (located at clicktotweet.com) and allows you to insert Click To Tweet boxes in your blog posts.
-Version: 2.0.14
+Version: 3.0.0
 Author: ClickToTweet.com
 Author URI: http://ctt.ec/
 Plugin URI: https://github.com/dchenk/click-to-tweet

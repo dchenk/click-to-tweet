@@ -10,18 +10,18 @@ class CTTshortcode extends ctt{
 
 	public function __construct(){
 		parent::__construct();
-		$this->box_option 		= get_option('ctt_box_setting');
-		$this->img_option 		= get_option('ctt_image_setting');
-		$this->hint_option 		= get_option('ctt_hint_box');
-		$this->tw_handler		= get_option('ctt_settings');
-		$this->tweet_length		= 280;
+		$this->box_option = get_option('ctt_box_setting');
+		$this->img_option = get_option('ctt_image_setting');
+		$this->hint_option = get_option('ctt_hint_box');
+		$this->tw_handler = get_option('ctt_settings');
+		$this->tweet_length = 280;
 		$this->mb_enabled = function_exists( 'mb_internal_encoding' );
-		add_shortcode( 'ctt', array( $this, 'ctt_shortcode_handler' ) );
-		add_shortcode( 'ctt_author', array( $this, 'ctt_author_handler' ) );
-		add_shortcode( 'ctt_ibox', array( $this, 'ctt_ibox_handler' ) );
-		add_shortcode( 'ctt_hbox', array( $this, 'ctt_hbox_handler' ) );
+		add_shortcode( 'ctt', [$this, 'ctt_shortcode_handler']);
+		add_shortcode( 'ctt_author', [$this, 'ctt_author_handler']);
+		add_shortcode( 'ctt_ibox', [$this, 'ctt_ibox_handler']);
+		add_shortcode( 'ctt_hbox', [$this, 'ctt_hbox_handler']);
 		$this->register_global_hooks();
-		if ( is_admin() ) {
+		if (is_admin()) {
 			$this->register_admin_hooks();
 		}
 	}
@@ -33,14 +33,14 @@ class CTTshortcode extends ctt{
 			if (false !== $lastSpace) {
 				$text = mb_substr($text, 0 , $lastSpace, 'UTF-8');
 			}
-			$text .= (mb_substr($text, -1, null, 'UTF-8') == '.') ? '..' : '...';
+			$text .= mb_substr($text, -1, null, 'UTF-8') == '.' ? '..' : '...';
 		} else if ( !$this->mb_enabled && (strlen($text) > $this->tweet_length - 1) ) {
 			$text = substr($text, 0, $this->tweet_length-3);
 			$lastSpace = strrpos($text, ' ');
 			if (false !== $lastSpace) {
 				$text = substr($text, 0 , $lastSpace);
 			}
-			$text .= (substr($text, -1, null) == '.') ? '..' : '...';
+			$text .= substr($text, -1, null) == '.' ? '..' : '...';
 		}
 		return stripslashes($text);
 	}
@@ -70,33 +70,30 @@ class CTTshortcode extends ctt{
 		if(isset($this->img_option['template_'.$bid]) && !empty($this->img_option['template_'.$bid]['position'])){
 			$position = " position_".$this->img_option['template_'.$bid]['position'];
 			return $position;
-		}else{
-			return;
 		}
+		return '';
 	}
 
 	private function ctt_img_size($bid){
-		if(isset($this->img_option['template_'.$bid]) && !empty($this->img_option['template_'.$bid]['button_size'])){
-			$size = " btn_".$this->img_option['template_'.$bid]['button_size'];
-			return $size;
-		}else{
-			return;
+		if (isset($this->img_option['template_'.$bid]) && !empty($this->img_option['template_'.$bid]['button_size'])){
+			return " btn_".$this->img_option['template_'.$bid]['button_size'];
 		}
+		return '';
 	}
 
 	private function ctt_img_text($bid){
 		$text = $this->img_option['template_'.$bid]['callforaction'];
 		$get_text = "";
-		if(isset($text) && !empty($text)){
+		if (isset($text) && !empty($text)){
 			$get_text = $text;
-		}else{
+		} else {
 			$get_text = "Tweet";
 		}
 		return $get_text;
 	}
 
 	private function ctt_img_hover($bid){
-		if(isset($this->img_option['template_'.$bid]) && !empty($this->img_option['template_'.$bid]['hover_action'])){
+		if (isset($this->img_option['template_'.$bid]) && !empty($this->img_option['template_'.$bid]['hover_action'])){
 			return " ctt_hover_".$this->img_option['template_'.$bid]['hover_action'];
 		}
 		return '';
@@ -126,8 +123,8 @@ class CTTshortcode extends ctt{
 		return '';
 	}
 
-	/*Box Design shortcode function*/
-	public function ctt_shortcode_handler( $atts, $content = null ) {
+	/* Box Design shortcode */
+	public function ctt_shortcode_handler($atts, $content = '') {
 		// Backwards support for old plugin
 		if ($atts['template'] == '') {
 			$atts['template'] = 1;
@@ -140,9 +137,9 @@ class CTTshortcode extends ctt{
 		// $via_text 	= (isset($via) && ($via ==  "yes")) ?  " ".$this->tw_handler['ctt-handler'] : "";
 		$is_follow	= (isset($nofollow) && ($nofollow == "yes")) ? " rel=\"nofollow\"" : "";
 		// $short_link = ( 1 == get_option( 'ctt-short-url' ) ) ? " ".get_permalink()." " : "";
-		$dis_icon = "<i></i>";
+		$dis_icon = '<i></i>';
 		if ($template > 10) {
-			$dis_icon = "";
+			$dis_icon = '';
 		}
 		return '<div class="tweet-box ctt-box-design-' . $template . $this->ctt_box_color($template).' ">
 			<a href="http://ctt.ec/'.$link.'" target="_blank" '.$is_follow.'>
@@ -152,7 +149,7 @@ class CTTshortcode extends ctt{
 			</div>';
 	}
 
-	public function ctt_author_handler( $atts, $content = null ){
+	public function ctt_author_handler($atts, $content = ''){
 			extract( shortcode_atts( array('link' => 'default-coverup','template'=> '','via'=> '','author'=>0, 'name'=>'', 'nofollow'=>''), $atts ) );
 			$via_text 	= (isset($via) && ($via ==  "yes")) ?  " ".$this->tw_handler['ctt-handler'] : "";
 			$is_follow	= (isset($nofollow) && ($nofollow == "yes")) ? " rel=\"nofollow\"" : "";

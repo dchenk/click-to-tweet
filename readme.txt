@@ -1,15 +1,15 @@
 === Click To Tweet ===
 Tags: click to tweet, clicktotweet, clicktotweet.com, tweet, twitter, twitter plugin, social media, share
 Requires at least: 3.4
-Tested up to: 4.9.6
-Stable tag: 2.0.14
-Contributors: clicktotweet
+Tested up to: 5.0
+Stable tag: 3.0.0
+Contributors: clicktotweet, widerwebs
 
 Easily design and insert "click to tweet" boxes in your blog posts that make it easy for your readers to tweet your content, images and links back to your blog. For extended tracking and other features, link your account with your free ClickToTweet.com account.
 
 == Description ==
 
-**Click to Tweet: The #1 WordPress Plugin for Twitter**
+**Click to Tweet: A Plugin for Twitter boxes**
 
 Click to Tweet is the easiest way to promote your content and encourage your audience to share it on Twitter through active prompts and optimal usability.
 
@@ -64,6 +64,9 @@ https://clicktotweet.com/blog/how-to-use-click-to-tweet-ultimate-tutorial/
 
 
 == Changelog ==
+
+= 3.0.0 =
+Rewrite of most of the code.
 
 = 2.0.14 =
 Fixed an issue where some blogs installed in a sub folder may not function properly when creating a new Click To Tweet link (ie. loading bar forever)
