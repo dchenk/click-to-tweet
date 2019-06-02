@@ -1,6 +1,6 @@
 <?php
-if(!current_user_can('manage_options')){
-	wp_die( __( 'You do not have sufficient permissions to access this page.','click-to-tweet' ) );
+if (!current_user_can('manage_options')){
+	wp_die(__('You do not have sufficient permissions to access this page.', 'click-to-tweet'));
 }
 ?>
 <script>
@@ -20,8 +20,8 @@ window.onload = function() {
 </script>
 	<div class="ctt-wrap">
 	<?php
-	$token = ( isset( $_GET['token'] ) ) ? $_GET['token'] : get_option( 'ctt-token' );
-	if($token) :
+	$token = (isset($_GET['token'])) ? $_GET['token'] : get_option('ctt-token');
+	if ($token) :
 	?>
 		<div class="ctt__settings">
 			<div class="clear"></div>
@@ -57,4 +57,4 @@ window.onload = function() {
 		?>
 		<h3><?php _e('ClickToTweet.com Integration', 'click-to-tweet'); ?></h3>
 		<a href="https://ctt.ec/user/login?source=wp&ref=<?=$ref?>" class="button button-primary"><?php _e('Sign-in with Twitter to connect to ClickToTweet.com', 'click-to-tweet'); ?></a>
-	<?php endif; ?>
+	<?php endif;
