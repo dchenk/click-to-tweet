@@ -4,7 +4,7 @@ $ic_data = get_option('ctt_image_setting');
 ?>
 <div class="ctt-setting-container dis-hint">
 	<div class="ctt-left set-output tab-img-prev">
-        <h3>Preview:</h3>
+        <h3>Preview</h3>
         <div class="box_preview box-design">
             <div id="ctt-itpl-con" class="click_clearfix aligncenter">
                 <div id="ctt-pre-img-1" class="image-preview"
@@ -17,9 +17,8 @@ $ic_data = get_option('ctt_image_setting');
                         </div>
                         <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 1,'position'); ?>">
                         <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 1,'button_size'); ?>"> <i></i>
-                        <span class="click_action">
-                            <?php echo $this->get_ibox_data($ic_data, 1,'callforaction'); ?>
-                        </span></a>
+                            <span class="click_action"><?php echo $this->get_ibox_data($ic_data, 1,'callforaction'); ?></span>
+                        </a>
                         </div>
                     </figure>
                 </div>

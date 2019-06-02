@@ -1,20 +1,18 @@
 jQuery(document).ready(function($){
-    var prev_hbox_type = $("#ctt-prev-hintbox").attr("data-design");
-    if(prev_hbox_type){
-            hbox_type = "";
-        if(prev_hbox_type == "background"){
+    const prev_hbox_type = $("#ctt-prev-hintbox").attr("data-design");
+    if (prev_hbox_type) {
+        let hbox_type = "";
+        if (prev_hbox_type == "background") {
             hbox_type = 0;
-        }else if(prev_hbox_type == "underline"){
+        } else if(prev_hbox_type == "underline") {
             hbox_type = 1;
             $(".row.hbox-colvar").hide();
-        }else if(prev_hbox_type == "highlighted"){
+        } else if(prev_hbox_type == "highlighted") {
             hbox_type = 2;
             $(".row.hbox-colvar").hide();
         }
-        $('select[name=hbox-type] > option').eq(hbox_type).attr('selected','selected')
+        $('select[name=hbox-type] > option').eq(hbox_type).attr('selected', 'selected');
     }
-
-    //$(".row.author-nm").hide();
 
     /*Box Design Template Setting*/
     $("#templ-select option:eq(0)").prop('selected', true);
@@ -70,7 +68,7 @@ jQuery(document).ready(function($){
         var _sel_template = $("#author-select").val();
         $("#col-pe-"+_sel_template+" label.auth-lbl").text($(this).val());
     });
-    $(".txt-color-opt a").on("click", function(){
+    $(".txt-color-opt a").on("click", function() {
         $(".txt-color-opt a").each(function(){
             $(".txt-color-opt a").removeClass("active");
         });
@@ -240,84 +238,83 @@ jQuery(document).ready(function($){
         $("input[name=hbox-color]").val(hval);
     });
 
-    $("select[name=hbox-type]").on("change", function(){
-        var hval = $(this).val();
-        if(hval == "background"){
+    $("select[name=hbox-type]").on("change", function() {
+        const hval = $(this).val();
+        if (hval == "background") {
             $(".hbox-colvar").show();
-        }else{
+        } else {
             $(".hbox-colvar").hide();
         }
-        if($(".hint-box-container span.click_hint a").hasClass("background-type") || $(".hint-box-container span.click_hint a").hasClass("underline-type") || $(".hint-box-container span.click_hint a").hasClass("highlighted-type")){
+        if ($(".hint-box-container span.click_hint a").hasClass("background-type") || $(".hint-box-container span.click_hint a").hasClass("underline-type") || $(".hint-box-container span.click_hint a").hasClass("highlighted-type")){
             $(".hint-box-container span.click_hint a").removeClass("background-type");
             $(".hint-box-container span.click_hint a").removeClass("underline-type");
             $(".hint-box-container span.click_hint a").removeClass("highlighted-type");
             $(".hint-box-container span.click_hint a").addClass(hval+"-type");
-        }else{
+        } else {
             $(".hint-box-container span.click_hint a").addClass(hval+"-type");
         }
     });
-
 })
 
-function save_template_setting(e){
+function save_template_setting(e) {
     jQuery(".dis-hint .set-settings .ctt-loader").show();
-    var ajx_url = jQuery(e).attr('data-ajxurl');
-    var data    = {
-            action: 'ctt_tpl_settings',
-            data: jQuery(e).serialize()
-        };
-        jQuery.post(ajx_url, data, function (response){
-            jQuery("#resp_ajx").html("Setting Saved");
-            setTimeout(function(){
-               jQuery("#resp_ajx").html("");
-            }, 1000);
-            jQuery(".dis-hint .set-settings .ctt-loader").hide();
-        });
-    return false;
-}
-
-function save_auth_box_setting(e){
-    jQuery(".dis-hint .set-settings .ctt-loader").show();
-    var ajx_url = jQuery(e).attr('data-ajxurl');
-    var data    = {
-            action: 'ctt_auth_settings',
-            data: jQuery(e).serialize()
-        };
-        jQuery.post(ajx_url, data, function (response){
-            jQuery("#auth_resp_ajx").html(response);
-            setTimeout(function(){
-               jQuery("#auth_resp_ajx").html("");
-            }, 1500);
-        jQuery(".dis-hint .set-settings .ctt-loader").hide();
-        });
-    return false;
-}
-
-function save_image_box_setting(e){
-    jQuery(".dis-hint .set-settings .ctt-loader").show();
-    var ajx_url = jQuery(e).attr('data-ajxurl');
-    var data    = {
-            action: 'ctt_image_settings',
-            data: jQuery(e).serialize()
-        };
-        jQuery.post(ajx_url, data, function (response){
-            jQuery(".resp_ajx").html(response);
-            setTimeout(function(){
-                jQuery(".resp_ajx").html("");
-            }, 1500);
-            jQuery(".dis-hint .set-settings .ctt-loader").hide();
-        });
-    return false;
-}
-
-function save_hind_box_setting(e){
-    jQuery(".dis-hint .set-settings .ctt-loader").show();
-    var ajx_url = jQuery(e).attr('data-ajxurl');
-    var data    = {
-            action: 'ctt_hint_box_settings',
-            data: jQuery(e).serialize()
+    const ajx_url = jQuery(e).attr('data-ajxurl');
+    const data = {
+        action: 'ctt_tpl_settings',
+        data: jQuery(e).serialize()
     };
     jQuery.post(ajx_url, data, function (response){
+        jQuery("#resp_ajx").html("Setting Saved");
+        setTimeout(function(){
+            jQuery("#resp_ajx").html("");
+        }, 1000);
+        jQuery(".dis-hint .set-settings .ctt-loader").hide();
+    });
+    return false;
+}
+
+function save_auth_box_setting(e) {
+    jQuery(".dis-hint .set-settings .ctt-loader").show();
+    const ajx_url = jQuery(e).attr('data-ajxurl');
+    const data = {
+        action: 'ctt_auth_settings',
+        data: jQuery(e).serialize()
+    };
+    jQuery.post(ajx_url, data, function (response){
+        jQuery("#auth_resp_ajx").html(response);
+        setTimeout(function(){
+            jQuery("#auth_resp_ajx").html("");
+        }, 1500);
+    jQuery(".dis-hint .set-settings .ctt-loader").hide();
+    });
+    return false;
+}
+
+function save_image_box_setting(e) {
+    jQuery(".dis-hint .set-settings .ctt-loader").show();
+    const ajx_url = jQuery(e).attr('data-ajxurl');
+    const data = {
+        action: 'ctt_image_settings',
+        data: jQuery(e).serialize()
+    };
+    jQuery.post(ajx_url, data, function (response){
+        jQuery(".resp_ajx").html(response);
+        setTimeout(function(){
+            jQuery(".resp_ajx").html("");
+        }, 1500);
+        jQuery(".dis-hint .set-settings .ctt-loader").hide();
+    });
+    return false;
+}
+
+function save_hind_box_setting(e) {
+    jQuery(".dis-hint .set-settings .ctt-loader").show();
+    const ajx_url = jQuery(e).attr('data-ajxurl');
+    const data = {
+        action: 'ctt_hint_box_settings',
+        data: jQuery(e).serialize()
+    };
+    jQuery.post(ajx_url, data, function (response) {
         jQuery(".hbox-response").text(response);
         setTimeout(function(){
             jQuery(".hbox-response").text("");
@@ -327,17 +324,17 @@ function save_hind_box_setting(e){
     return false;
 }
 
-function ctt_tweet_settings(e){
-    var ajx_url = jQuery(e).attr('data-ajxurl');
-    var data    = {
-            action: 'ctt_tweet_settings',
-            data: jQuery(e).serialize()
+function ctt_tweet_settings(e) {
+    const ajx_url = jQuery(e).attr('data-ajxurl');
+    const data = {
+        action: 'ctt_tweet_settings',
+        data: jQuery(e).serialize()
     };
-    jQuery.post(ajx_url, data, function (response){
-            jQuery(".hbox-response").html(response);
-             setTimeout(function(){
-                jQuery(".hbox-response").text("");
-            }, 1500);
+    jQuery.post(ajx_url, data, function (response) {
+        jQuery(".hbox-response").html(response);
+        setTimeout(function() {
+            jQuery(".hbox-response").text("");
+        }, 1500);
     });
     return false;
 }
