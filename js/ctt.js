@@ -4,7 +4,7 @@
 		init: function(ed, url) {
 			ed.addButton("ctt", {
 				title: "Click To Tweet Plugin",
-				image: url.replace("/js", "") + "/images/editor-ticon.png",
+				image: url.replace("/js", "") + "/images/editor-icon.png",
 				onclick: function() {
 					const seltxt = showSelection();
 					const pre_txt = encodeURIComponent(seltxt).replace("%A0", "%20");
