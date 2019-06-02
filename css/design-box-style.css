@@ -34,7 +34,7 @@ label{font-weight:700}
 .click-to-tweet{width:100%;border-top:1px solid #E5E5E5;display:inline-block;margin:7px auto 0;color:#bcbcbc;box-sizing:border-box;padding-top:7px}
 .tweet-box input{display:none}
 .tweet-box label{display:inline-block;width:100%;height:auto;vertical-align:top;padding:10px;box-sizing:border-box}
-.click-to-tweet i{display:inline-block; /*background-image:url(http://demo.xicom.us/Clicktotweet/wp-content/plugins/clicktotweetcom/twitter-button.png);*/width:20px;height:20px;vertical-align:middle;margin:0 10px 0 0}
+.click-to-tweet i{display:inline-block; /*background-image:url(http://demo.xicom.us/Clicktotweet/wp-content/plugins/click-to-tweet/twitter-button.png);*/width:20px;height:20px;vertical-align:middle;margin:0 10px 0 0}
 .tweet-box input:checked + span.select, .col-preview input:checked + span.select {border:2px solid #0074A2;position:absolute;left:0;right:0;width:100%;height:100%;top:0;bottom:0;box-sizing:border-box; box-shadow: inset 0px 0px 5px rgba(0,0,0,0.8);     border: 3px solid #0074A2; z-index: 9;}
 .tweet-box.hint-box{box-shadow:none;background:none}
 .tweet-box.hint-box p{font-family:"Open Sans",sans-serif;font-size:13px;line-height:normal}
@@ -262,9 +262,6 @@ background-image: url("img/second-bg.png"); background-repeat: no-repeat; backgr
 .author-second-inner:hover .tweet-text p  {color: #e53935; }
 .author-second-inner:hover .lower-btn > a{    background-image: url("img/tweet-hover.png");  background-position: 12px 3px; color: #e53935;}
 
-
-
-
  /*==  third author   ==*/
 .author-third-inner { padding: 14px 21px;cursor: pointer; background-color: transparent}
 .author-third-inner .thumb { -moz-border-radius: 100px;/*Firefox*/-webkit-border-radius: 100px;/*Safari, Chrome*/border-radius: 100px;  float: left;  overflow: hidden;  width: 100px; height: 100px; padding-left: 0;}
@@ -278,7 +275,7 @@ background-image: url("img/second-bg.png"); background-repeat: no-repeat; backgr
   font: 14px/20px italic Times, serif;
   padding: 8px;
   margin: 5px 5px 5px;
-  background-image: url("http://demo.xicom.us/Clicktotweet/wp-content/plugins/clicktotweetcom/Quote.png");
+  background-image: url("img/Quote.png");
   background-position: top left;
   background-repeat: no-repeat;
   text-indent: 23px;
@@ -286,7 +283,7 @@ background-image: url("img/second-bg.png"); background-repeat: no-repeat; backgr
    background-position: 8px 9px;
   }
 .author-third-inner blockquote.style1 p {
-  background-image: url("http://demo.xicom.us/Clicktotweet/wp-content/plugins/clicktotweetcom/twitter-single.png");
+  background-image: url("img/twitter-single.png");
   background-position: 369px 47px;
   background-repeat: no-repeat;
   background-size: 19px auto;

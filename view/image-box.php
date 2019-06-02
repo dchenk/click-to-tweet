@@ -3,93 +3,99 @@ $plug_url = plugins_url()."/clicktotweetcom/";
 $ic_data = get_option('ctt_image_setting');
 ?>
 <div class="ctt-setting-container dis-hint">
-    <div class="ctt-left set-output tab-img-prev">
-            <h3>Preview:</h3>
-            <div class="box_preview box-design">
-	            <div id="ctt-itpl-con" class="click_clearfix aligncenter">
-                    <div id="ctt-pre-img-1" class="image-preview" data-cta="<?php echo $ic_data['template_1']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_1']['button_size']; ?>"
+	<div class="ctt-left set-output tab-img-prev">
+        <h3>Preview:</h3>
+        <div class="box_preview box-design">
+            <div id="ctt-itpl-con" class="click_clearfix aligncenter">
+                <div id="ctt-pre-img-1" class="image-preview"
+                    data-cta="<?php echo $ic_data['template_1']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_1']['button_size']; ?>"
                     data-position="<?php echo $ic_data['template_1']['position']; ?>" data-onhover="<?php echo $ic_data['template_1']['hover_action']; ?>">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                     <figure class="click_image click_image_template_1">
-                    <div class="ctt_img_container<?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 1,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
-                    </div>
-                    <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 1,'position'); ?>">
-                    <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 1,'button_size'); ?>"> <i></i>
-                    <span class="click_action">
-                        <?php echo $this->get_ibox_data($ic_data, 1,'callforaction'); ?>
-                    </span></a>
-                    </div>
+                        <div class="ctt_img_container<?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 1,'hover_action'); ?>">
+                            <img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
+                        </div>
+                        <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 1,'position'); ?>">
+                        <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 1,'button_size'); ?>"> <i></i>
+                        <span class="click_action">
+                            <?php echo $this->get_ibox_data($ic_data, 1,'callforaction'); ?>
+                        </span></a>
+                        </div>
                     </figure>
-                    </div>
+                </div>
 
-                    <div id="ctt-pre-img-2" class="image-preview" data-cta="<?php echo $ic_data['template_2']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_2']['button_size']; ?>"
+                <div id="ctt-pre-img-2" class="image-preview"
+                    data-cta="<?php echo $ic_data['template_2']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_2']['button_size']; ?>"
                     data-position="<?php echo $ic_data['template_2']['position']; ?>" data-onhover="<?php echo $ic_data['template_2']['hover_action']; ?>">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		            <figure class="click_image click_image_template_2">
-						<div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 2,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
-						</div>
-						<div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 2,'position'); ?>">
-							<a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 2,'button_size'); ?>"> <i></i>
+                    <figure class="click_image click_image_template_2">
+                        <div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 2,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
+                        </div>
+                        <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 2,'position'); ?>">
+                            <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 2,'button_size'); ?>"> <i></i>
                             <span class="click_action"><?php echo $this->get_ibox_data($ic_data, 2,'callforaction'); ?></span></a>
-						</div>
-					</figure>
-                    </div>
+                        </div>
+                    </figure>
+                </div>
 
-                    <div id="ctt-pre-img-3" class="image-preview" data-cta="<?php echo $ic_data['template_3']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_3']['button_size']; ?>"
+                <div id="ctt-pre-img-3" class="image-preview"
+                    data-cta="<?php echo $ic_data['template_3']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_3']['button_size']; ?>"
                     data-position="<?php echo $ic_data['template_3']['position']; ?>" data-onhover="<?php echo $ic_data['template_3']['hover_action']; ?>">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		            <figure class="click_image click_image_template_3">
-						<div class="ctt_img_container  <?php echo "ctt_hover_".$this->get_ibox_data($ic_data, 3,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
-						</div>
-						<div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 3,'position'); ?>">
-							<a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 3,'button_size'); ?>">
-                            <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 3,'callforaction'); ?></span></a>
-							<span class="ctt_action">Tweet</span>
-						</div>
-					</figure>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <figure class="click_image click_image_template_3">
+                    <div class="ctt_img_container  <?php echo "ctt_hover_".$this->get_ibox_data($ic_data, 3,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
                     </div>
-
-                    <div id="ctt-pre-img-4" class="image-preview" data-cta="<?php echo $ic_data['template_4']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_4']['button_size']; ?>"
-                    data-position="<?php echo $ic_data['template_4']['position']; ?>" data-onhover="<?php echo $ic_data['template_4']['hover_action']; ?>">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		            <figure class="click_image click_image_template_4">
-						<div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 4,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
-						</div>
-						<div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 4,'position'); ?>">
-							<a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 4,'button_size'); ?>"> <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 4,'callforaction'); ?></span></a>
-							<span class="ctt_action">Tweet</span>
-						</div>
-					</figure>
+                    <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 3,'position'); ?>">
+                        <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 3,'button_size'); ?>">
+                        <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 3,'callforaction'); ?></span></a>
+                        <span class="ctt_action">Tweet</span>
                     </div>
+                </figure>
+                </div>
 
-                    <div id="ctt-pre-img-5" class="image-preview" data-cta="<?php echo $ic_data['template_5']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_5']['button_size']; ?>"
+                <div id="ctt-pre-img-4" class="image-preview" data-cta="<?php echo $ic_data['template_4']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_4']['button_size']; ?>"
+                data-position="<?php echo $ic_data['template_4']['position']; ?>" data-onhover="<?php echo $ic_data['template_4']['hover_action']; ?>">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <figure class="click_image click_image_template_4">
+                    <div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 4,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
+                    </div>
+                    <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 4,'position'); ?>">
+                        <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 4,'button_size'); ?>"> <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 4,'callforaction'); ?></span></a>
+                        <span class="ctt_action">Tweet</span>
+                    </div>
+                </figure>
+                </div>
+
+                <div id="ctt-pre-img-5" class="image-preview"
+                    data-cta="<?php echo $ic_data['template_5']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_5']['button_size']; ?>"
                     data-position="<?php echo $ic_data['template_5']['position']; ?>" data-onhover="<?php echo $ic_data['template_5']['hover_action']; ?>">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		            <figure class="click_image click_image_template_5">
-						<div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 5,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
-						</div>
-						<div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 5,'position'); ?>">
-							<a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 5,'button_size'); ?>"> <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 5,'callforaction'); ?></span></a>
-						</div>
-					</figure>
-                    </div>
+                    <figure class="click_image click_image_template_5">
+                        <div class="ctt_img_container <?php echo " ctt_hover_".$this->get_ibox_data($ic_data, 5,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
+                        </div>
+                        <div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 5,'position'); ?>">
+                            <a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 5,'button_size'); ?>"> <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 5,'callforaction'); ?></span></a>
+                        </div>
+                    </figure>
+                </div>
 
-                    <div id="ctt-pre-img-6" class="image-preview" data-cta="<?php echo $ic_data['template_6']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_6']['button_size']; ?>"
-                    data-position="<?php echo $ic_data['template_6']['position']; ?>" data-onhover="<?php echo $ic_data['template_6']['hover_action']; ?>">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		            <figure class="click_image click_image_template_6">
-						<div class="ctt_img_container <?php echo "ctt_hover_".$this->get_ibox_data($ic_data, 6,'hover_action'); ?>"><img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
+				<div id="ctt-pre-img-6" class="image-preview"
+					data-cta="<?php echo $ic_data['template_6']['callforaction']; ?>" data-btnsize="<?php echo $ic_data['template_6']['button_size']; ?>"
+					data-position="<?php echo $ic_data['template_6']['position']; ?>" data-onhover="<?php echo $ic_data['template_6']['hover_action']; ?>">
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					<figure class="click_image click_image_template_6">
+						<div class="ctt_img_container <?php echo "ctt_hover_".$this->get_ibox_data($ic_data, 6,'hover_action'); ?>">
+							<img src="<?php echo $plug_url."images/sample-thumb.jpg"; ?>">
 						</div>
 						<div class="click_click_to_tweet twitter_standard <?php echo "position_".$this->get_ibox_data($ic_data, 6,'position'); ?>">
 							<a href="#" class="click_image_link <?php echo "btn_".$this->get_ibox_data($ic_data, 6,'button_size'); ?>">
-                            <i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 6,'callforaction'); ?></span></a>
+							<i></i><span class="click_action"><?php echo $this->get_ibox_data($ic_data, 6,'callforaction'); ?></span></a>
 						</div>
 					</figure>
-                    </div>
-	            </div>
-            </div>
-    </div>
-
+				</div>
+			</div>
+		</div>
+	</div>
     <div class="ctt-right form_settings set-settings">
             <div class="ctt-loader"></div>
             <h3>Settings:</h3>
