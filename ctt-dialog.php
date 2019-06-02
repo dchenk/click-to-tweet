@@ -5,7 +5,7 @@ if (!defined('WPINC')) {
 }
 $check_token = get_option('ctt-token');
 if (empty($check_token)) {
-	echo "<p class=\"check-token\" style=\"background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;\">You must have to Sign-in with Twitter to connect to ClickToTweet.com.
+	echo "<p class=\"check-token\" style=\"background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;\">You need to sign in with Twitter to connect to ClickToTweet.com.
 	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> for sign-in.";
 	return;
 }
@@ -49,34 +49,21 @@ $permalink = $_REQUEST['permalink'];
 					}
 				});
 			});
-		</script>
-		<?php
-//			if(function_exists('wp_enqueue_media')){
-//				do_action('admin_print_styles');
-//				do_action('admin_print_scripts');
-//				do_action('admin_head');
-//				wp_enqueue_media();
-//			}else{
-//				wp_enqueue_style('thickbox');
-//				wp_enqueue_script('media-upload');
-//				wp_enqueue_script('thickbox');
-//			}
-		?>
-<script>
-	function arc_tpl(e){
-		const title 	= $("#set-hideen-tweet").attr("data-title");
-		const link 	= $("#set-hideen-tweet").attr("data-cover");
-		const tag 	= '[ctt link="'+link+'" template="'+e+'"]'+title+'[/ctt]';
-		if (window.tinyMCE) {
-			window.tinyMCE.execCommand('mceInsertContent', false, tag);
-			tinyMCEPopup.editor.execCommand('mceRepaint');
-			tinyMCEPopup.close();
-		}
-	}
+
+			function arc_tpl(e){
+				const title = $("#set-hideen-tweet").attr("data-title");
+				const link = $("#set-hideen-tweet").attr("data-cover");
+				const tag = `[ctt link="${link}" template="${e}"]${title}[/ctt]`;
+				if (window.tinyMCE) {
+					window.tinyMCE.execCommand('mceInsertContent', false, tag);
+					tinyMCEPopup.editor.execCommand('mceRepaint');
+					tinyMCEPopup.close();
+				}
+			}
 
 	function ctt_submit(e){
-		const coverup = e.id.replace('insert_', '');
-		const tweetEl = document.getElementById('tweet_' + coverup);
+		const coverup = e.id.replace("insert_", "");
+		const tweetEl = document.getElementById("tweet_" + coverup);
 		const tweet = tweetEl.innerHTML;
 		$(".ask-template-option").show();
 		$("#set-hideen-tweet").attr("data-tweet", tweet);
@@ -85,14 +72,15 @@ $permalink = $_REQUEST['permalink'];
 
 	function tw_image_uploader(obj){
 		const custom_uploader = wp.media({
-			title: 'Select Image for Tweet',
-			button: {text: 'Insert Image'},
+			title: "Select Image for Tweet",
+			button: {text: "Insert Image"},
 			multiple: false
-		}).on('select', function() {
-			const attachment = custom_uploader.state().get('selection').first().toJSON();
+		});
+		custom_uploader.on("select", function() {
+			const attachment = custom_uploader.state().get("selection").first().toJSON();
 			$("#tweet-thumb-id").val(attachment.id);
 			$("#tab-3 img.twd-image").each(function() {
-				$(this).attr('src', attachment.url);
+				$(this).attr("src", attachment.url);
 			});
 		}).open();
 	}
@@ -305,9 +293,8 @@ $permalink = $_REQUEST['permalink'];
 
 							<div>
 								<input type="checkbox" name="inc-ref" id="inc-ref" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Include link back to blog post">
-								<label for="inc-ref" title="Select to append Twitter Username into your tweet">Include link back to blog post
-								</label>
-								<input style="width:310px" type="text" name="inc-ref-url" id="inc-ref-url" value="<?php print $permalink; ?>" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>">
+								<label for="inc-ref" title="Select to append Twitter Username into your tweet">Include link back to blog post</label>
+								<input style="width:310px" type="text" name="inc-ref-url" id="inc-ref-url" value="<?php echo $permalink; ?>" data-handler="<?php echo $setting['ctt-handler'] ?? ''; ?>">
 							</div>
 
 							<div>

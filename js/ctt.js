@@ -15,7 +15,7 @@
 							width: 1030,
 							height: 600,
 							classes: "myAwesomeClass-panel",
-							url: `${ajaxurl}?action=ctt_show_dialog&pretext=${pre_txt}&permalink${permalink}`,
+							url: `${ajaxurl}?action=ctt_show_dialog&pretext=${pre_txt}&permalink=${permalink}`,
 						});
 					});
 				}
