@@ -8,7 +8,7 @@
 				onclick: function() {
 					const seltxt = showSelection();
 					const pre_txt = encodeURIComponent(seltxt).replace("%A0", "%20");
-					const permalink = jQuery("#sample-permalink a").attr("href");
+					const permalink = jQuery("#editor .edit-post-post-link__link-prefix").text();
 					jQuery(document).ready(function($) {
 						tinymce.activeEditor.windowManager.open({
 							title: "Click To Tweet Plugin",
