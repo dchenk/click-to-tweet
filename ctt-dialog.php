@@ -6,7 +6,7 @@ if (!defined('WPINC')) {
 $check_token = get_option('ctt-token');
 if (empty($check_token)) {
 	echo "<p class=\"check-token\" style=\"background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;\">You need to sign in with Twitter to connect to ClickToTweet.com.
-	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> for sign-in.";
+	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> to sign in.";
 	return;
 }
 $plug_url = plugins_url() . '/click-to-tweet/';
@@ -18,8 +18,8 @@ $permalink = $_REQUEST['permalink'];
 <html lang="en-US">
 	<head>
 		<title>Click To Tweet Plugin</title>
-		<link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type="text/css" media="all" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type="text/css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="<?php echo get_site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 		<script>
 			function ctt_count_char(val) {
@@ -31,6 +31,7 @@ $permalink = $_REQUEST['permalink'];
 					$("#charNum").text(280 - len);
 				}
 			}
+
 			$(document).ready(function() {
 				const pre_text = $("#twtext").val().length;
 				$("#charNum").text(280 - pre_text);
@@ -42,7 +43,7 @@ $permalink = $_REQUEST['permalink'];
 					$(".tab-content").not(tab).css("display", "none");
 					$(tab).fadeIn();
 				});
-				$("#snd-via").on( "click", function(){
+				$("#snd-via").on("click", function(){
 					if (!$(this).attr("data-handler")){
 						$(".empty-handler").show();
 					} else {
@@ -51,10 +52,10 @@ $permalink = $_REQUEST['permalink'];
 				});
 			});
 
-			function arc_tpl(e){
+			function arc_tpl(id){
 				const title = $("#set-hideen-tweet").attr("data-title");
 				const link = $("#set-hideen-tweet").attr("data-cover");
-				const tag = `[ctt link="${link}" template="${e}"]${title}[/ctt]`;
+				const tag = `[ctt link="${link}" template="${id}"]${title}[/ctt]`;
 				if (window.tinyMCE) {
 					window.tinyMCE.execCommand('mceInsertContent', false, tag);
 					tinyMCEPopup.editor.execCommand('mceRepaint');
@@ -62,41 +63,44 @@ $permalink = $_REQUEST['permalink'];
 				}
 			}
 
-	function ctt_submit(e){
-		const coverup = e.id.replace("insert_", "");
-		const tweetEl = document.getElementById("tweet_" + coverup);
-		const tweet = tweetEl.innerHTML;
-		$(".ask-template-option").show();
-		$("#set-hideen-tweet").attr("data-tweet", tweet);
-		$("#set-hideen-tweet").attr("data-cover", coverup);
-	}
+			function ctt_submit(e){
+				const coverup = e.id.replace("insert_", "");
+				const tweetEl = document.getElementById("tweet_" + coverup);
+				const tweet = tweetEl.innerHTML;
+				$(".ask-template-option").show();
+				$("#set-hideen-tweet").attr("data-tweet", tweet);
+				$("#set-hideen-tweet").attr("data-cover", coverup);
+			}
 
-	function tw_image_uploader(obj){
-		const custom_uploader = wp.media({
-			title: "Select Image for Tweet",
-			button: {text: "Insert Image"},
-			multiple: false
-		});
-		custom_uploader.on("select", function() {
-			const attachment = custom_uploader.state().get("selection").first().toJSON();
-			$("#tweet-thumb-id").val(attachment.id);
-			$("#tab-3 img.twd-image").each(function() {
-				$(this).attr("src", attachment.url);
-			});
-		}).open();
-	}
+			function tw_image_uploader(obj){
+				const custom_uploader = wp.media({
+					title: "Select image for iweet",
+					button: { text: "Insert Image" },
+					multiple: false
+				});
+				custom_uploader.on("select", function() {
+					const attachment = custom_uploader.state().get("selection").first().toJSON();
+					$("#tweet-thumb-id").val(attachment.id);
+					$("#tab-3 img.twd-image").each(function() {
+						$(this).attr("src", attachment.url);
+					});
+				}).open();
+			}
 
-	function author_image_uploader(obj){
-		const custom_uploader = wp.media({title: 'Select Image for Author',button: {text: 'Insert Author Image'},
-		multiple: false
-		}).on('select', function() {
-		var attachment = custom_uploader.state().get('selection').first().toJSON();
-		$("#author-thumb-id").val(attachment.id);
-		$("#tab-4 img.auth-src").each(function(){
-		$(this).attr('src', attachment.url);
-		});
-		}).open();
-	}
+			function author_image_uploader(obj){
+				const custom_uploader = wp.media({
+					title: 'Select Image for Author',
+					button: {text: 'Insert Author Image'},
+					multiple: false
+				});
+				custom_uploader.on('select', function() {
+					const attachment = custom_uploader.state().get('selection').first().toJSON();
+					$("#author-thumb-id").val(attachment.id);
+					$("#tab-4 img.auth-src").each(function(){
+					$(this).attr('src', attachment.url);
+					});
+				}).open();
+			}
 
 	jQuery(function($) {
 		$("#cancel-ctt-theme").on("click", function() {

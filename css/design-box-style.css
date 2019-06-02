@@ -841,7 +841,7 @@ ul#tab-lbl li a {
   border-radius: 5px display;
 }
 #ctt_new {
-  text-align: left;
+  margin-bottom: 12px;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
 }
