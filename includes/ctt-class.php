@@ -14,8 +14,8 @@ if ( !class_exists( 'ctt' ) ) {
 			var_dump( $array );
 			echo '</pre>';
 		}
-		public function deactivation(){
 
+		public function deactivation(){
 		}
 
 		/**
@@ -70,30 +70,27 @@ if ( !class_exists( 'ctt' ) ) {
 			exit;
 		}
 
-		/*Function for upload function on twitter APP*/
+		/* Upload function on Twitter APP */
 		private function send_image_to_twitter($image_path, $image_url) {
-			
 			$wptoken = get_option( 'ctt-token' );
 			$image_name  = basename($image_path);
 			$url = "https://ctt.ec/twitter/pluginPostImage?image=".$image_url."&wptoken=".$wptoken;
 			$request = wp_remote_get($url);
 			$response = wp_remote_retrieve_body( $request );
-							
-            if ($response != '') {
-                return $response;
-            }
-            else {
-                return $image_url;
-            }
-        }
-        public function ctt_counter(){
-        	$ctt_pub_counter = get_option('ctt-pcounter');
-        	if($ctt_pub_counter){
-        		update_option('ctt-pcounter', ($ctt_pub_counter+1));
-        	}else{
-        		update_option('ctt-pcounter', 1);
-        	}
-        }
+
+			if ($response != '') {
+				return $response;
+			}
+			return $image_url;
+		}
+		public function ctt_counter(){
+			$ctt_pub_counter = get_option('ctt-pcounter');
+			if($ctt_pub_counter){
+				update_option('ctt-pcounter', ($ctt_pub_counter+1));
+			}else{
+				update_option('ctt-pcounter', 1);
+			}
+		}
 		/*Post data via ctt.ec API*/
 		public function ctt_api_post_callback() {
 			check_ajax_referer( 'ctt_nonce_string', 'security' );
@@ -126,9 +123,8 @@ if ( !class_exists( 'ctt' ) ) {
 					print_r($post_array);
 				}
 				die;
-				return;
-			}else{
-			if(isset($theme) && (($theme['tab'] !="") && ($theme['box'] !=0))){
+			}
+			if (isset($theme) && (($theme['tab'] !="") && ($theme['box'] !=0))) {
 				$check_theme = get_option('ctt-used-theme');
 				$var = "";
 				if($theme['tab'] == 1){
@@ -143,11 +139,11 @@ if ( !class_exists( 'ctt' ) ) {
 						$mrg_ary = array_merge($check_theme,$var);
 						update_option('ctt-used-theme', $mrg_ary);
 					}
-				}elseif(!empty($var)){
+				} elseif (!empty($var)){
 						update_option('ctt-used-theme', $var);
 				}
 			}
-			$td = array();
+			$td = [];
 			parse_str($_POST['data'], $td);
 			$post_tweet = "";
 			if(isset($td['send-via'])){
@@ -172,24 +168,22 @@ if ( !class_exists( 'ctt' ) ) {
 			$res 		= wp_remote_get($gourl);
 
 			if ( is_wp_error( $res ) ) {
-				$temp 		= 'Error: ' . $res->get_error_message();
-
+				$temp = 'Error: ' . $res->get_error_message();
 			} else {
-				$temp 		= json_decode($res['body'], true);
+				$temp = json_decode($res['body'], true);
 			}
-			
+
 			if(isset($td['author-thumb-id'])){
 				$temp['author'] = $td['author-thumb-id'];
 			}else{
 				$temp['author'] = 9999;
 			}
-			
+
 			$temp['title'] = $_POST['title'];
 			$send_data = json_encode($temp);
 			print_r($send_data);
 			$this->ctt_counter();
 			exit;
-			}
 		}
 
 		public function tinymce_button() {
@@ -322,28 +316,24 @@ if ( !class_exists( 'ctt' ) ) {
 			}
 			$text = $matches[1];
 			$short = $this->shorten( $text, 100 );
-			return "<hr /><p><em>" . $short . "</em><br /><a href='https://twitter.com/share?text=" . urlencode( $short ) . $handle_code . "&url=" . get_permalink() . "' target='_blank'>Click To Tweet</a></p><hr />";
+			return "<hr /><p><em>" . $short . "</em><br><a href='https://twitter.com/share?text=" . urlencode( $short ) . $handle_code . "&url=" . get_permalink() . "' target='_blank'>Click To Tweet</a></p><hr />";
 		}
 
 		/**
 		 * Regular expression to locate tweet tags
 		 */
 		public function replace_tags( $content ) {
-			if ( !is_feed() ) {
-				$content = preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet' ), $content );
-			} else {
-				$content = preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet_feed' ), $content );
+			if (is_feed()) {
+				return preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet_feed' ), $content );
 			}
-
-			return $content;
+			return preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet' ), $content );
 		}
+
 		/**
 		 * Cache bust tinymce
 		 */
 		public function refresh_mce( $ver ) {
-			$ver += 3;
-			return $ver;
+			return $ver + 3;
 		}
 	}
 }
-?>

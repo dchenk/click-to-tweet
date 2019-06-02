@@ -4,13 +4,13 @@ if (!defined('WPINC')) {
 	die;
 }
 $check_token = get_option('ctt-token');
-if(empty($check_token)){
+if (empty($check_token)) {
 	echo "<p class=\"check-token\" style=\"background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;\">You must have to Sign-in with Twitter to connect to ClickToTweet.com.
 	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> for sign-in.";
 	return;
 }
-$plug_url 	= plugins_url() . '/click-to-tweet/';
-$setting 	= get_option('ctt_settings');
+$plug_url = plugins_url() . '/click-to-tweet/';
+$setting = get_option('ctt_settings');
 $permalink = $_REQUEST['permalink'];
 
 ?>
@@ -18,21 +18,21 @@ $permalink = $_REQUEST['permalink'];
 <html lang="en-US">
 	<head>
 		<title>Click To Tweet Plugin</title>
-		<link rel="stylesheet"  href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type='text/css' media='all' />
+		<link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . "css/design-box-style.css"; ?>" type="text/css" media="all" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 		<script>
 			function ctt_count_char(val) {
-		        var len = val.value.length;
-		        if (len >= 280) {
-		          val.value = val.value.substring(0, 280);
-		        }else{
-		          $('#charNum').text(280 - len);
-		        }
-		      }
+				var len = val.value.length;
+				if (len >= 280) {
+					val.value = val.value.substring(0, 280);
+				} else {
+					$("#charNum").text(280 - len);
+				}
+			}
 			$(document).ready(function() {
 				var pre_text = $("#twtext").val().length;
-				$('#charNum').text(280 - pre_text);
+				$("#charNum").text(280 - pre_text);
 				$(".tabs-menu a").click(function(event) {
 					event.preventDefault();
 					$(this).parent().addClass("current");
@@ -64,7 +64,7 @@ $permalink = $_REQUEST['permalink'];
 //				wp_enqueue_script('thickbox');
 //			}
 		?>
-<script language="javascript" type="text/javascript">
+<script>
 function arc_tpl(e){
 	var txt 	= $("#set-hideen-tweet").attr("data-tweet");
 	var title 	= $("#set-hideen-tweet").attr("data-title");
@@ -77,14 +77,13 @@ function arc_tpl(e){
 	}
 }
 
-
 function ctt_submit(e){
-var coverup = e.id.replace('insert_', '');
-var tweetEl = document.getElementById('tweet_' + coverup);
-var tweet = tweetEl.innerHTML;
-$(".ask-template-option").show();
-$("#set-hideen-tweet").attr("data-tweet", tweet);
-$("#set-hideen-tweet").attr("data-cover", coverup);
+	var coverup = e.id.replace('insert_', '');
+	var tweetEl = document.getElementById('tweet_' + coverup);
+	var tweet = tweetEl.innerHTML;
+	$(".ask-template-option").show();
+	$("#set-hideen-tweet").attr("data-tweet", tweet);
+	$("#set-hideen-tweet").attr("data-cover", coverup);
 }
 
 function tw_image_uploader(obj){
@@ -244,40 +243,40 @@ if(twtext.length != 0){
 }); /*jQuery Function*/
 
 function stripslashes (str) {
-  // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-  // +   improved by: Ates Goral (http://magnetiq.com)
-  // +      fixed by: Mick@el
-  // +   improved by: marrtins
-  // +   bugfixed by: Onno Marsman
-  // +   improved by: rezna
-  // +   input by: Rick Waldron
-  // +   reimplemented by: Brett Zamir (http://brett-zamir.me)
-  // +   input by: Brant Messenger (http://www.brantmessenger.com/)
-  // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
-  // *     example 1: stripslashes('Kevin\'s code');
-  // *     returns 1: "Kevin's code"
-  // *     example 2: stripslashes('Kevin\\\'s code');
-  // *     returns 2: "Kevin\'s code"
-  return (str + '').replace(/\\(.?)/g, function (s, n1) {
-    switch (n1) {
-    case '\\':
-      return '\\';
-    case '0':
-      return '\u0000';
-    case '':
-      return '';
-    default:
-      return n1;
-    }
-  });
+	// + original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// + improved by: Ates Goral (http://magnetiq.com)
+	// + fixed by: Mick@el
+	// + improved by: marrtins
+	// + bugfixed by: Onno Marsman
+	// + improved by: rezna
+	// + input by: Rick Waldron
+	// + reimplemented by: Brett Zamir (http://brett-zamir.me)
+	// + input by: Brant Messenger (http://www.brantmessenger.com/)
+	// + bugfixed by: Brett Zamir (http://brett-zamir.me)
+	// * example 1: stripslashes('Kevin\'s code');
+	// * returns 1: "Kevin's code"
+	// * example 2: stripslashes('Kevin\\\'s code');
+	// * returns 2: "Kevin\'s code"
+	return (str + '').replace(/\\(.?)/g, function(s, n1) {
+		switch (n1) {
+		case '\\':
+			return '\\';
+		case '0':
+			return '\u0000';
+		case '':
+			return '';
+		default:
+			return n1;
+		}
+	});
 }
 </script>
 	</head>
 	<body>
 	<?php
-	$pretxt = "";
-	if(isset($_GET['pretext'])){
-	$pretxt = stripslashes($_GET['pretext']);
+	$pretxt = '';
+	if (isset($_GET['pretext'])) {
+		$pretxt = stripslashes($_GET['pretext']);
 	}
 	?>
 		<div class="ctt_dialog">
@@ -296,15 +295,13 @@ function stripslashes (str) {
 								<label for="tweet" title="Enter text which you want to Tweet">Message you would like tweeted <a href="#_"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </label>
 								<div class="char-left"> <span id="charNum"></span>&nbsp; characters remaining </div>
 								<textarea name="tweet" type="text" class="ctt-tarea" id="twtext" rows="2" cols="50" onkeyup="ctt_count_char(this)" title="Enter text which you want to Tweet"><?php echo $pretxt; ?></textarea>
-								<label for="title">Message you would like displayed in blog post</label><br />
+								<label for="title">Message you would like displayed in blog post</label><br>
 								<textarea type="text" name="title" id="title" rows="2" cols="50"></textarea>
 							</div>
 							<div>
 							<input type="checkbox" name="send-via" id="snd-via" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Select to append Twitter Username into your tweet">
 							<label for="snd-via" title="Select to append Twitter Username into your tweet">Include Twitter Username
-							<span class="empty-handler">
-							(Oops, Username not found. <a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">Click here</a> to manage your Twitter Username)
-							</span>
+							<span class="empty-handler">(Oops, Username not found. <a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">Click here</a> to manage your Twitter Username)</span>
 							</label>
 							</div>
 
@@ -569,51 +566,51 @@ function stripslashes (str) {
 									<br>
 									<div class="auth-box-one">
 										<div id="col-pe-13" class="col-preview">
-										<label>
-										<input type="radio" name="author-box" value="1">
-										<div class="author-first-inner">
-										<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
-										<div class="tweet-text">
-										<p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
-										<div class="lower-btn"><label>Nick</label><a href="#">CLICK TO TWEET</a></div>
-										<span class="select"> </span>
-										</div>
-										<div class="clearfix"></div>
-										</div>
-										</label>
+											<label>
+												<input type="radio" name="author-box" value="1">
+												<div class="author-first-inner">
+													<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
+													<div class="tweet-text">
+														<p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
+														<div class="lower-btn"><label>Nick</label><a href="#">CLICK TO TWEET</a></div>
+														<span class="select"> </span>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+											</label>
 										</div>
 
 										<div style="display: block;" id="col-pe-14" class="col-preview">
-										<label>
-										<input type="radio" name="author-box" value="2">
-										<div class="author-second-inner">
-										<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
-										<div class="tweet-text">
-										<p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
-										<div class="lower-btn">
-										<label class="auth-lbl">Nick</label>
-										<a href="#"><span class="cta-pr">CLICK TO TWEET</span></a>
-										</div>
-										</div>
-										<div class="clearfix"></div>
-										</div>
-										</label>
+											<label>
+												<input type="radio" name="author-box" value="2">
+												<div class="author-second-inner">
+													<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
+													<div class="tweet-text">
+														<p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
+														<div class="lower-btn">
+															<label class="auth-lbl">Nick</label>
+															<a href="#"><span class="cta-pr">CLICK TO TWEET</span></a>
+														</div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+											</label>
 										</div>
 
 										<div style="display: block;" id="col-pe-15" class="col-preview">
-										<label>
-										<input type="radio" name="author-box" value="3">
-										<div class="author-third-inner">
-										<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
-										<div class="tweet-text">
-										<blockquote class="style1"><p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p></blockquote>
-										<div class="lower-btn">
-										<label class="auth-lbl">Nick</label>
-										</div>
-										</div>
-										<div class="clearfix"></div>
-										</div>
-										</label>
+											<label>
+												<input type="radio" name="author-box" value="3">
+												<div class="author-third-inner">
+													<div class="thumb"><img src="<?php echo $plug_url; ?>/images/timface.jpeg" alt="" class="auth-src"></div>
+													<div class="tweet-text">
+														<blockquote class="style1"><p>Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p></blockquote>
+														<div class="lower-btn">
+															<label class="auth-lbl">Nick</label>
+														</div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+											</label>
 										</div>
 									</div>
 									</div>
@@ -629,16 +626,14 @@ function stripslashes (str) {
 										<input id="set-hideen-tweet" type="hidden" data-tweet="" data-cover="" data-title="">
 										<h3>Select Box Template</h3>
 										<?php
-										for($i = 1; $i<=12; $i++){
+										for ($i = 1; $i<=12; $i++){
 											echo '<a href="javascript:void(0);" data-tpl="'.$i.'" onclick="return arc_tpl('.$i.');">Box Template '.$i.'</a>';
 										}
 										?>
 									</div>
 								</div>
 								<h3>Existing CTT</h3>
-								<div class="inside list">
-									<?php echo $content; ?>
-								</div>
+								<div class="inside list"><?php echo $content; ?></div>
 							</div>
 						</div>
 						<input id="ctt-insert-button" type="submit" value="Insert New CTT" name="submit" class="button button-primary button-large">
