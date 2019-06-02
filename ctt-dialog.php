@@ -26,6 +26,7 @@ $permalink = $_REQUEST['permalink'];
 				const len = val.value.length;
 				if (len >= 280) {
 					val.value = val.value.substring(0, 280);
+					$("#charNum").text("0");
 				} else {
 					$("#charNum").text(280 - len);
 				}
@@ -147,20 +148,21 @@ $permalink = $_REQUEST['permalink'];
 			const twtext = $("#twtext").val();
 			const title = $("#title").val();
 			const auth_id = $("#author-thumb-id").val();
-			var auth_name = $("#ctt-author-name").val();
-			var ibox_id = $("#tweet-thumb-id").val();
+			const auth_name = $("#ctt-author-name").val();
+			const ibox_id = $("#tweet-thumb-id").val();
 
-			if ((idCount == 4) && (auth_id == "")){
+			if (idCount == 4 && auth_id == "") {
 				alert("Upload author image.");
 				return false;
 			}
 
-			if ((idCount == 3) && (ibox_id == "")) {
+			if (idCount == 3 && ibox_id == "") {
 				alert("Upload image for tweet.");
 				return false;
 			}
 
 			e.preventDefault();
+
 			if (twtext.length !== 0) {
 				if (valselected > 0 || rec_selected != "") {
 					$(".ctt_dialog .ctt-loader").show();
@@ -174,34 +176,29 @@ $permalink = $_REQUEST['permalink'];
 						tweet_text: twtext,
 						title: title
 					};
-					$.post('<?php bloginfo('url'); ?>/wp-admin/admin-ajax.php', data, function(response) {
-						ctt = jQuery.parseJSON(response);
-						let via_text = "";
+					$.post("<?php bloginfo('url'); ?>/wp-admin/admin-ajax.php", data, function(response) {
+						const ctt = jQuery.parseJSON(response);
+
+						const via_text = ($("#snd-via").is(":checked")) ? "via=\"yes\"" : "via=\"no\"";
+
 						let ctt_flow = "";
-
-						if (($("#snd-via").is(':checked'))){
-							via_text = "via=\"yes\"";
-						} else {
-							via_text = "via=\"no\"";
-						}
-
 						if (($("#ctt-nofollow").is(':checked'))) {
 							ctt_flow = "nofollow=\"yes\"";
 						}
 
 						ctt.title = stripslashes(ctt.title);
 
-						if(idCount == 1){
+						if (idCount == 1){
 							res = '[ctt template="'+ valselected +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt]';
-						}else if(idCount == 2){
+						} else if(idCount == 2){
 							res = '[ctt_hbox link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.tweet+'[/ctt_hbox]';
-						}else if((idCount == 3) && (typeof(ctt.thumb_id) !="undefined")){
+						} else if((idCount == 3) && (typeof(ctt.thumb_id) !="undefined")){
 							res = '[ctt_ibox thumb="' + ctt.thumb_id + '" template="'+ valselected +'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt_ibox]';
-						}else if((idCount == 4) && (typeof(ctt.author) !="undefined")){
+						} else if((idCount == 4) && (typeof(ctt.author) !="undefined")){
 							res = '[ctt_author author="' + ctt.author + '" name="'+auth_name+'" template="'+ valselected +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt_author]';
 						}
 
-						if(rec_selected !=""){
+						if (rec_selected != "") {
 							rec_type = rec_selected.split("-");
 							if(rec_type[0] == "box"){
 								res = '[ctt template="'+ rec_type[1] +'" link="'+ctt.coverup+'" '+via_text+' '+ctt_flow+']'+ctt.title+'[/ctt]';
@@ -277,36 +274,31 @@ $permalink = $_REQUEST['permalink'];
 						</ul>
 						<div id="Design_1" class="designBOX" style="display:blobk">
 							<input type="hidden" name="token" value="<?php echo $token; ?>">
-							<div class="textarea-container">
-								<label for="tweet" title="Enter text which you want to Tweet">Message you would like tweeted <a href="#_"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </label>
-								<div class="char-left"> <span id="charNum"></span>&nbsp; characters remaining </div>
-								<textarea name="tweet" type="text" class="ctt-tarea" id="twtext" rows="2" cols="50" onkeyup="ctt_count_char(this)" title="Enter text which you want to Tweet"><?php echo $pretxt; ?></textarea>
-								<label for="title">Message you would like displayed in blog post</label><br>
-								<textarea type="text" name="title" id="title" rows="2" cols="50"></textarea>
-							</div>
+							<label for="twtweet" class="textarea-label" title="Enter text which you want to Tweet">Message to be tweeted</label>
+							<textarea name="tweet" id="twtext" rows="2" onkeyup="ctt_count_char(this)" title="Enter the text to be tweeted"><?php echo $pretxt; ?></textarea>
+							<div class="chars-left"><span id="charNum"></span>&nbsp;characters remaining</div>
+							<label for="title" class="textarea-label">Message to be displayed in blog post</label>
+							<textarea name="title" id="title" rows="2"></textarea>
 							<div>
 								<input type="checkbox" name="send-via" id="snd-via" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Select to append Twitter Username into your tweet">
-								<label for="snd-via" title="Select to append Twitter Username into your tweet">Include Twitter Username
-									<span class="empty-handler">(Oops, Username not found. <a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">Click here</a> to manage your Twitter Username)</span>
+								<label for="snd-via" title="Select to append Twitter Username into your tweet">Include Twitter username
+									<span class="empty-handler">(The username was not found. <a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">Click here</a> to manage your Twitter Username)</span>
 								</label>
 							</div>
-
 							<div>
 								<input type="checkbox" name="inc-ref" id="inc-ref" value="1" data-handler="<?php echo ($setting['ctt-handler']) ? $setting['ctt-handler'] : ""; ?>" title="Include link back to blog post">
 								<label for="inc-ref" title="Select to append Twitter Username into your tweet">Include link back to blog post</label>
 								<input style="width:310px" type="text" name="inc-ref-url" id="inc-ref-url" value="<?php echo $permalink; ?>" data-handler="<?php echo $setting['ctt-handler'] ?? ''; ?>">
 							</div>
-
 							<div>
 								<input type="checkbox" name="ctt-nofollow" id="ctt-nofollow" value="1" title="Select in order to make links nofollow and not to count some of their links to other pages">
 								<input style="display: none;" value="1" checked="checked" name="links" id="links" class="hidden-field" type="checkbox">
-								<label for="links">Shorten Links</label>
-								<span class="mf-settings">
-									<span>Need to switch accounts or edit settings?</span><a href="<?php echo admin_url(); ?>/options-general.php?page=ctt" target="_parent">MODIFY SETTINGS</a>
-								</span>
+								<label for="links">Shorten links</label>
 							</div>
-							<p><span class="reqfld-label">Fill all above Fields.</span>
+							<p class="edit-settings">
+								<a href="<?php echo admin_url(); ?>options-general.php?page=ctt" target="_parent">Switch accounts or edit settings</a>
 							</p>
+							<p><span class="reqfld-label">Fill all above fields.</span></p>
 						<?php
 						$themes = get_option('ctt-used-theme');
 						if($themes){
@@ -397,7 +389,6 @@ $permalink = $_REQUEST['permalink'];
 												<span class="select"> </span></label>
 										</div>
 
-
 										<div class="clear"></div>
 
 										<div class="tweet-box sixth">
@@ -460,7 +451,8 @@ $permalink = $_REQUEST['permalink'];
 												<p class="td_">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
 												<span class="click-to-tweet"> <span><i></i>CLICK TO TWEET</span> </span>
 												<input type="radio" name="designBOX1" value="10">
-												<span class="select"> </span></label>
+												<span class="select"> </span>
+											</label>
 										</div>
 
 										<div class="tweet-box ninth">
@@ -468,16 +460,17 @@ $permalink = $_REQUEST['permalink'];
 												<p class="td_">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
 												<span class="click-to-tweet"> <span><i></i>CLICK TO TWEET</span> </span>
 												<input type="radio" name="designBOX1" value="11">
-												<span class="select"> </span></label>
+												<span class="select"> </span>
+											</label>
 										</div>
-
 
 										<div class="tweet-box twelth">
 											<label>
 												<p class="td_">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
 												<span class="click-to-tweet"> <span><i></i>CLICK TO TWEET</span> </span>
 												<input type="radio" name="designBOX1" value="12">
-												<span class="select"></span></label>
+												<span class="select"></span>
+											</label>
 										</div>
 										<div class="clear"></div>
 									</div>
@@ -486,10 +479,10 @@ $permalink = $_REQUEST['permalink'];
 										<div class="box-design hint-box">
 											<div class="hint-box-container">
 											<label>
-											<p>Don't read this text. It is here just to represent
-											<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background']. "-type color_".$hb_opt['color']; ?>">
-											<span class="click-text_hint">an example of any article on your blog. So this is kinda the paragraph of usual text in your article and what you see below is the "tweet box" created by CTT plugin.  <i> </i> </span><span class="tweetdis_hint_icon"></span> </a></span>
-											</p><input type="radio" name="designBOX2" value="1"><span class="select"></span>
+												<p>Don't read this text. It is here just to represent
+												<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background']. "-type color_".$hb_opt['color']; ?>">
+												<span class="click-text_hint">an example of any article on your blog. So this is kinda the paragraph of usual text in your article and what you see below is the "tweet box" created by CTT plugin. <i> </i> </span><span class="tweetdis_hint_icon"></span> </a></span>
+												</p><input type="radio" name="designBOX2" value="1"><span class="select"></span>
 											</label>
 											</div>
 										</div>
@@ -611,7 +604,7 @@ $permalink = $_REQUEST['permalink'];
 										<input id="set-hideen-tweet" type="hidden" data-tweet="" data-cover="" data-title="">
 										<h3>Select Box Template</h3>
 										<?php
-										for ($i = 1; $i<=12; $i++){
+										for ($i = 1; $i <= 12; $i++) {
 											echo '<a href="javascript:void(0);" data-tpl="'.$i.'" onclick="return arc_tpl('.$i.');">Box Template '.$i.'</a>';
 										}
 										?>
@@ -629,7 +622,6 @@ $permalink = $_REQUEST['permalink'];
 		</div>
 		<?php
 		do_action('admin_print_footer_scripts');
-//		do_action('admin_footer');
 		?>
 	</body>
 </html>

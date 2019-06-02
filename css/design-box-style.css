@@ -72,18 +72,16 @@ label {
 }
 .button {
   background: #2ea2cc;
-  border-color: #0074a2;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
   font-size: 14px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.15);
-  color: #fff !important;
+  color: #fff;
   font-weight: 700;
   text-decoration: none;
-  padding: 10px;
-  border-radius: 8px;
+  cursor: pointer;
 }
+
 .ctt_new,
 .ctt_insert {
   background-color: #efefef;
@@ -1432,25 +1430,47 @@ label#designBOX {
   font-weight: normal;
 }
 
-.inside #Design_1.designBOX input[type="checkbox"] {
-  display: inline-block;
-  vertical-align: middle;
-}
 .inside .designBOX label {
   display: inline-block;
   float: none;
   width: auto;
 }
 
+#Design_1 input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#Design_1 label.textarea-label {
+  display: block;
+  margin: 8px 0 1px;
+}
+
 .tweet-box:nth-child(2n) {
   margin: 0 2px auto;
 }
+
 #Design_1 .tweet-box:nth-child(2n) {
   margin: 0 10px 10px;
 }
+
 #Design_1 .tweet-box:nth-child(3n - 1) {
   margin: 0 2px auto;
 }
+
+#Design_1 textarea {
+  margin: 1px 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 17px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  resize: none;
+}
+
 .tab-content {
   padding: 0;
 }
@@ -1505,41 +1525,16 @@ label#designBOX {
   padding: 0;
   text-align: center;
 }
-textarea.ctt-tarea {
-  border: 1px solid #ccc;
-  resize: none;
-  padding: 10px;
-}
+
 span#charNum {
   font-weight: bold;
   text-align: right;
 }
-/*p.edit-ctt-seting span{display: block; margin-bottom: 20px;}*/
-p.edit-ctt-seting a {
-  background: #00b9e6;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 8px;
+
+p.edit-settings {
+  padding: 10px 0 12px;
 }
-/*p.edit-ctt-seting a:hover{}
-.edit-ctt-seting{margin: 0; padding: 0; text-align: right;}
-.edit-ctt-seting > span{display: block; margin-bottom: 10px;}*/
-.mf-settings {
-  float: right;
-  margin-right: 24px;
-}
-.mf-settings span {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.mf-settings a {
-  background: #2ea2cc;
-  color: #ffffff !important;
-  float: right;
-  padding: 5px;
-  text-decoration: none;
-}
+
 .inside .buttons {
   z-index: 99;
 }
@@ -1550,28 +1545,8 @@ span.empty-handler {
   display: none;
 }
 
-.textarea-container {
-  display: inline-block;
-  width: 700px;
-  background: #f2f2f2;
-  padding: 17px;
-  border-radius: 3px;
-  border: 1px solid #d9d9d9;
-}
-.textarea-container label {
-  color: #4d4d4d;
-  font-size: 14px;
-}
-.char-left {
-  display: inline-block;
+.chars-left {
+  display: block;
   float: right;
   color: #222222;
-}
-.textarea-container textarea {
-  margin: 10px auto;
-  width: 100%;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.75);
-  padding: 10px;
-  font-size: 17px;
 }
