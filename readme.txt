@@ -1,6 +1,6 @@
 === Click To Tweet ===
 Tags: click to tweet, clicktotweet, clicktotweet.com, tweet, twitter, twitter plugin, social media, share
-Requires at least: 3.4
+Requires at least: 5.0
 Tested up to: 5.0
 Stable tag: 3.0.0
 Contributors: clicktotweet, widerwebs
@@ -26,41 +26,6 @@ Click to Tweet is successful because of its simple, effective promotion that adh
 * Link tracking allows users to take advantage of automatic link shortening and statistics of each embedded link. Click tracking provides detailed analytics on the Click to Tweet link such as total number, date, and location of clicks.
 * Click to Tweet links are automatically embedded and fully editable. Links can be categorized using folders by topic, date range, etc. for quick reference.
 * Lots of themes to choose from to really make your tweetable links stand out!  Fully customize the display box that appears including colors, text, images, and more.
-
-For more information, support, or to download the desktop app, visit http://clicktotweet.com.
-
-
-== Installation ==
-
-There are 2 different ways to quickly and easily get this plugin installed on your website, listed below for your reference.
-
-**WordPress Administrator Panel**
-
-WordPress admin section installation is the easiest option to install a plugin as WordPress handles the file transfers itself. To complete a WordPress admin section installation for the Click To Tweet plugin, you’ll need to log in and navigate to the “Plugins” menu. Click on the “Add New” option at the top of the page.
-
-In the search field at the right side, type *“click to tweet”* and perform the search. The first plugin listed is ours! Once you’ve found the plugin in the search results, you can view the details about it such as the point release, rating and description. In order to install the plugin, you just need to click “Install Now” and you will be asked if you’re sure you want to install the plugin. Please click “Yes” and WordPress will automatically complete the installation process.
-
-Within the configuration file of your website, if **“FS_METHOD”** is set to direct and you try to install the plugin from the admin section, it will prompt you to fill in the FTP credentials of your website and upon posting the same, it will install the plugin.
-
-**Using File Transfer Protocol**
-
-The manual installation involves downloading the Click To Tweet plugin from the WordPress directory and then uploading it to your webserver via the FTP application. In this case, you need to perform the following steps:
-1. Download the plugin file to your computer and unzip it.
-2. Using a FTP application, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
-3. Activate the plugin from the plugins menu within the admin section.
-
-**Final Step**
-
-Once you are finished with the installation process, head over to the **Settings -> Click To Tweet** menu in WordPress to ensure you can connect with your Twitter account.
-
-
-== Frequently Asked Questions ==
-
-Check out our Help section for frequently asked questions about Click To Tweet:
-https://clicktotweet.com/help
-
-Read our step-by-step tutorial to learn more about Click To Tweet:
-https://clicktotweet.com/blog/how-to-use-click-to-tweet-ultimate-tutorial/
 
 
 == Changelog ==

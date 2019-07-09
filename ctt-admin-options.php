@@ -21,7 +21,7 @@ window.onload = function() {
 	<div class="ctt-wrap">
 	<?php
 	$token = (isset($_GET['token'])) ? $_GET['token'] : get_option('ctt-token');
-	if ($token) : ?>
+	if ($token) { ?>
 		<div class="ctt__settings">
 			<div class="clear"></div>
 			<div class="ctt-mrsetting">
@@ -51,9 +51,9 @@ window.onload = function() {
 				</div>
 			</div>
 		</div>
-	<?php else:
-		$ref = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		?>
+	<?php } else {
+		$ref = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
 		<h3><?php _e('ClickToTweet.com Integration', 'click-to-tweet'); ?></h3>
-		<a href="https://ctt.ec/user/login?source=wp&ref=<? echo $ref; ?>" class="button button-primary"><?php _e('Sign in with Twitter to connect to ClickToTweet.com', 'click-to-tweet'); ?></a>
-	<?php endif;
+		<a href="https://ctt.ec/user/login?source=wp&ref=<?php echo $ref; ?>" class="button button-primary"><?php _e('Sign in with Twitter to connect to ClickToTweet.com', 'click-to-tweet'); ?></a>
+	<?php
+	}

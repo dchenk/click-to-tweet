@@ -5,8 +5,8 @@ if (!defined('WPINC')) {
 }
 $check_token = get_option('ctt-token');
 if (empty($check_token)) {
-	echo "<p class=\"check-token\" style=\"background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;\">You need to sign in with Twitter to connect to ClickToTweet.com.
-	<a href=\"".get_admin_url()."options-general.php?page=ctt\" target=\"_parent\">Click here</a> to sign in.";
+	echo '<p class="check-token" style="background:#ffffff; height: 100%; margin-top: 50px; padding: 10px; text-align: center;width: 100%;">You need to sign in with Twitter to connect to ClickToTweet.com.
+	<a href="' . get_admin_url() . 'options-general.php?page=ctt" target="_parent">Click here</a> to sign in.';
 	return;
 }
 $plug_url = plugins_url() . '/click-to-tweet/';
@@ -300,55 +300,55 @@ $post_id = $_GET['post_id'] ?? '';
 							<p><span class="reqfld-label">Fill all above fields.</span></p>
 						<?php
 						$themes = get_option('ctt-used-theme');
-						if($themes){
+						if ($themes) {
 							echo '<div id="recomnded-theme"><h3>Select a recently used theme</h3>';
-							for($i = 0; $i< count($themes); $i++){
-								$tpl = explode("-", $themes[$i]);
-								$iclass = "";
-								if($tpl[0] == "box"){
+							for ($i = 0; $i < count($themes); $i++) {
+								$tpl = explode('-', $themes[$i]);
+								$iclass = '';
+								if ($tpl[0] == 'box') {
 									$ival = $tpl[1];
-									if($ival == 1){
-										$iclass = "first";
-									}elseif($ival == 3){
-										$iclass = "second";
-									}elseif($ival == 2){
-										$iclass = "third";
-									}elseif($ival == 6){
-										$iclass = "fourth";
-									}elseif($ival == 5){
-										$iclass = "forteenth";
-									}elseif($ival == 4){
-										$iclass = "sixth";
-									}elseif($ival == 7){
-										$iclass = "fifth";
-									}elseif($ival == 8){
-										$iclass = "fifteenth";
-									}elseif($ival == 9){
-										$iclass = "seventh";
-									}elseif($ival == 10){
-										$iclass = "eighth";
-									}elseif($ival == 11){
-										$iclass = "ninth";
-									}elseif($ival == 12){
-										$iclass = "twelth";
+									if ($ival == 1) {
+										$iclass = 'first';
+									} elseif ($ival == 3) {
+										$iclass = 'second';
+									} elseif ($ival == 2) {
+										$iclass = 'third';
+									} elseif ($ival == 6) {
+										$iclass = 'fourth';
+									} elseif ($ival == 5) {
+										$iclass = 'forteenth';
+									} elseif ($ival == 4) {
+										$iclass = 'sixth';
+									} elseif ($ival == 7) {
+										$iclass = 'fifth';
+									} elseif ($ival == 8) {
+										$iclass = 'fifteenth';
+									} elseif ($ival == 9) {
+										$iclass = 'seventh';
+									} elseif ($ival == 10) {
+										$iclass = 'eighth';
+									} elseif ($ival == 11) {
+										$iclass = 'ninth';
+									} elseif ($ival == 12) {
+										$iclass = 'twelth';
 									}
-								}else{
-									$iclass = "hint-box";
+								} else {
+									$iclass = 'hint-box';
 								}
-								if($iclass !="hint-box"){
-									echo '<div class="tweet-box '.$iclass.'" data-tpl="'.$themes[$i].'">
+								if ($iclass != 'hint-box') {
+									echo '<div class="tweet-box ' . $iclass . '" data-tpl="' . $themes[$i] . '">
 									<label>
 									<p class="td_">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes</p>
 									<span class="click-to-tweet"> <span><i></i>CLICK TO TWEET</span></span>
 									<input type="radio" value="" name="rec-theme"><span class="select"></span></label></div>';
-								}else{
-									echo '<div class="tweet-box rhint-ctt" data-tpl="'.$themes[$i].'"><div class="hint-box-container"><label>
+								} else {
+									echo '<div class="tweet-box rhint-ctt" data-tpl="' . $themes[$i] . '"><div class="hint-box-container"><label>
 									<p>Don\'t read this text. It is here just to represent <span class="click_hint"><a href="#" class="background-type color_1">
 									<span class="click-text_hint">Sample Dummy Text for ClickToTweet plugin - A Wordpress plugin for creating Customize tweetable quotes
 									<i></i></span><span class="tweetdis_hint_icon"></span> </a></span></p><input type="radio" value="" name="rec-theme"><span class="select"></span></label></div></div>';
 								}
-						}
-						echo "</div>";
+							}
+							echo '</div>';
 						} ?>
 						</div>
 						<div id="Design_2" class="designBOX" style="display:none;">
@@ -479,7 +479,7 @@ $post_id = $_GET['post_id'] ?? '';
 											<div class="hint-box-container">
 											<label>
 												<p>Don't read this text. It is here just to represent
-												<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background']. "-type color_".$hb_opt['color']; ?>">
+												<span class="click_hint inpop-up"><a href="#" class="<?php echo $hb_opt['background'] . '-type color_' . $hb_opt['color']; ?>">
 												<span class="click-text_hint">an example of any article on your blog. So this is kinda the paragraph of usual text in your article and what you see below is the "tweet box" created by CTT plugin. <i> </i> </span><span class="tweetdis_hint_icon"></span> </a></span>
 												</p><input type="radio" name="designBOX2" value="1"><span class="select"></span>
 											</label>
@@ -491,21 +491,21 @@ $post_id = $_GET['post_id'] ?? '';
 
 										<div id="testerup"></div>
 										<div class="tweet-box image-box first-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="1">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box second-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="2">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box third-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="3">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> <span class="ctt_action">Tweet</span> </span>
@@ -513,21 +513,21 @@ $post_id = $_GET['post_id'] ?? '';
 
 										<div class="clear"></div>
 										<div class="tweet-box image-box fourth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="4">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link"> <i></i><span class="click_action">Tweet</span></a> <span class="ctt_action">Tweet</span> </span>
 										</div>
 
 										<div class="tweet-box image-box fifth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="5">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link btn_original"> <i></i><span class="click_action">Click To Tweet</span></a> </span>
 										</div>
 
 										<div class="tweet-box image-box sixth-image">
-											<label> <img src="<?php echo plugin_dir_url(__FILE__) . "images/sample-image.jpg"; ?>" alt="" class="twd-image">
+											<label> <img src="<?php echo plugin_dir_url(__FILE__) . 'images/sample-image.jpg'; ?>" alt="" class="twd-image">
 												<input type="radio" name="designBOX3" value="6">
 												<span class="select"> </span> </label>
 											<span class="click-to-tweet"> <a href="#" class="click_image_link btn_original"> <i></i><span class="click_action">Click To Tweet</span></a> </span>
@@ -604,7 +604,7 @@ $post_id = $_GET['post_id'] ?? '';
 										<h3>Select Box Template</h3>
 										<?php
 										for ($i = 1; $i <= 12; $i++) {
-											echo '<a href="javascript:void(0);" data-tpl="'.$i.'" onclick="return arc_tpl('.$i.');">Box Template '.$i.'</a>';
+											echo '<a href="javascript:void(0);" data-tpl="' . $i . '" onclick="return arc_tpl(' . $i . ');">Box Template ' . $i . '</a>';
 										}
 										?>
 									</div>

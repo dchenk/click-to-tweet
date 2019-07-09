@@ -1,11 +1,12 @@
 <?php
+
 if (!class_exists('ctt')) {
 	class ctt {
 		public function __construct() {
 			$this->glob_translate();
 		}
 
-		public function glob_translate(){
+		public function glob_translate() {
 			load_plugin_textdomain('click-to-tweet', false, basename(__DIR__) . '/languages/');
 		}
 
@@ -45,7 +46,7 @@ if (!class_exists('ctt')) {
 			add_action('admin_menu', [$this, 'admin_menu']);
 
 			// Add settings link to plugins listing page
-			add_filter('plugin_action_links', [$this, 'plugin_settings_link'], 2, 2 );
+			add_filter('plugin_action_links', [$this, 'plugin_settings_link'], 2, 2);
 
 			// Add button plugin to TinyMCE
 			add_action('init', [$this, 'tinymce_button']);
@@ -58,42 +59,28 @@ if (!class_exists('ctt')) {
 		}
 
 		public function ctt_show_dialog_callback() {
-			$ajax_nonce = wp_create_nonce( 'ctt_nonce_string' );
-			$token = get_option( 'ctt-token' );
-			$res = wp_remote_get( 'https://ctt.ec/Wp/listCTTs?token=' . $token );
-			if ( is_wp_error( $res ) ) {
+			$ajax_nonce = wp_create_nonce('ctt_nonce_string');
+			$token = get_option('ctt-token');
+			$res = wp_remote_get('https://ctt.ec/Wp/listCTTs?token=' . $token);
+			if (is_wp_error($res)) {
 				$content = 'Error: ' . $res->get_error_message();
 			} else {
 				$content = $res['body'];
 			}
-			include( plugin_dir_path(dirname( __FILE__ )) . '/ctt-dialog.php' );
+			include(plugin_dir_path(__DIR__) . '/ctt-dialog.php');
 			exit;
 		}
 
-		/* Upload function on Twitter APP */
-		private function send_image_to_twitter($image_path, $image_url) {
-			$wptoken = get_option( 'ctt-token' );
-			$image_name  = basename($image_path);
-			$url = "https://ctt.ec/twitter/pluginPostImage?image=".$image_url."&wptoken=".$wptoken;
-			$request = wp_remote_get($url);
-			$response = wp_remote_retrieve_body( $request );
-
-			if ($response != '') {
-				return $response;
-			}
-			return $image_url;
-		}
-
-		public function ctt_counter(){
+		public function ctt_counter() {
 			$ctt_pub_counter = get_option('ctt-pcounter');
 			if ($ctt_pub_counter) {
-				update_option('ctt-pcounter', $ctt_pub_counter+1);
+				update_option('ctt-pcounter', $ctt_pub_counter + 1);
 			} else {
 				update_option('ctt-pcounter', 1);
 			}
 		}
 
-		/* Post data via ctt.ec API */
+		// Post data via ctt.ec API
 		public function ctt_api_post_callback() {
 			check_ajax_referer('ctt_nonce_string', 'security');
 			$ctt_pub_counter = get_option('ctt-pcounter');
@@ -107,25 +94,25 @@ if (!class_exists('ctt')) {
 				$thumb = $url[0];
 				$thumb_meta = get_post_meta($_POST['tweet_id'], '_ctt_twitter_url', true);
 				if ($thumb_meta) {
-					$send_tweet = stripslashes($_POST['tweet_text'])." ".$thumb_meta;
+					$send_tweet = stripslashes($_POST['tweet_text']) . ' ' . $thumb_meta;
 					parse_str($_POST['data'], $return_arg);
-					$post_array = array('thumb_id'=>$_POST['tweet_id'], 'tweet'=>$send_tweet, 'tab'=>$return_arg['tab-upbox'], 'tab_box'=>$return_arg['designBOX3']);
+					$post_array = ['thumb_id' => $_POST['tweet_id'], 'tweet' => $send_tweet, 'tab' => $return_arg['tab-upbox'], 'tab_box' => $return_arg['designBOX3']];
 					$post_array_json = json_encode($post_array);
 					print_r($post_array_json);
 				} else {
-					$image_path = "";
+					$image_path = '';
 					if (function_exists('get_home_path')) {
-	                	$image_path = str_replace(home_url('/'), get_home_path() . '/', $thumb);
-	                }
+						$image_path = str_replace(home_url('/'), get_home_path() . '/', $thumb);
+					}
 					$tweet_src = $this->send_image_to_twitter($image_path, $thumb);
 					update_post_meta($_POST['tweet_id'], '_ctt_twitter_url', $tweet_src);
 					parse_str($_POST['data'], $return_arg);
-					$tw_with_img = $return_arg['tweet']." ".$tweet_src;
+					$tw_with_img = $return_arg['tweet'] . ' ' . $tweet_src;
 					$post_array = [
 						'thumb_id' => $_POST['tweet_id'],
-						'tweet' => stripslashes($tw_with_img),
-						'tab' => $return_arg['tab-upbox'],
-						'tab_box' => $return_arg['designBOX3']
+						'tweet'    => stripslashes($tw_with_img),
+						'tab'      => $return_arg['tab-upbox'],
+						'tab_box'  => $return_arg['designBOX3'],
 					];
 					$post_array_json = json_encode($post_array);
 					print_r($post_array_json);
@@ -133,19 +120,19 @@ if (!class_exists('ctt')) {
 				die;
 			}
 
-			if (isset($theme) && $theme['tab'] != "" && $theme['box'] != 0) {
+			if (isset($theme) && $theme['tab'] != '' && $theme['box'] != 0) {
 				$check_theme = get_option('ctt-used-theme');
 				$var = '';
-				if($theme['tab'] == 1){
-					$in_ary = "box-".$theme['box'];
-					$var 	= array("box-".$theme['box']);
-				}elseif($theme['tab'] == 2){
-					$in_ary = "hint-box";
-					$var = array("hint-box");
+				if ($theme['tab'] == 1) {
+					$in_ary = 'box-' . $theme['box'];
+					$var = ['box-' . $theme['box']];
+				} elseif ($theme['tab'] == 2) {
+					$in_ary = 'hint-box';
+					$var = ['hint-box'];
 				}
-				if($check_theme && $var){
-					if((count($check_theme) < 6) && (!in_array($in_ary,$check_theme))){
-						$mrg_ary = array_merge($check_theme,$var);
+				if ($check_theme && $var) {
+					if ((count($check_theme) < 6) && (!in_array($in_ary, $check_theme))) {
+						$mrg_ary = array_merge($check_theme, $var);
 						update_option('ctt-used-theme', $mrg_ary);
 					}
 				} elseif (!empty($var)) {
@@ -171,9 +158,9 @@ if (!class_exists('ctt')) {
 			// Encode hashtags.
 			$post_tweet = str_replace('#', '%23', $post_tweet);
 
-			$rec_theme = isset($td['rec-theme']) ? "&rec-theme={$td['rec-theme']}" : "";
-			$gmdata = "links=".$td['links']."&token=".$token."&tweet=".$post_tweet."&tab-upbox=".$td['tab-upbox'].$rec_theme;
-			$gourl = 'https://ctt.ec/Wp/createSubmit?'.$gmdata;
+			$rec_theme = isset($td['rec-theme']) ? "&rec-theme={$td['rec-theme']}" : '';
+			$gmdata = 'links=' . $td['links'] . '&token=' . $token . '&tweet=' . $post_tweet . '&tab-upbox=' . $td['tab-upbox'] . $rec_theme;
+			$gourl = 'https://ctt.ec/Wp/createSubmit?' . $gmdata;
 			$res = wp_remote_get($gourl);
 
 			if (is_wp_error($res)) {
@@ -196,13 +183,13 @@ if (!class_exists('ctt')) {
 		}
 
 		public function tinymce_button() {
-			if ( !current_user_can( 'edit_posts' ) && !current_user_can( 'edit_pages' ) ) {
+			if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
 				return;
 			}
 
-			if ( get_user_option( 'rich_editing' ) == 'true' ) {
-				add_filter( 'mce_external_plugins', array( $this, 'tinymce_register_plugin' ) );
-				add_filter( 'mce_buttons', array( $this, 'tinymce_register_button' ) );
+			if (get_user_option('rich_editing') == 'true') {
+				add_filter('mce_external_plugins', [$this, 'tinymce_register_plugin']);
+				add_filter('mce_buttons', [$this, 'tinymce_register_button']);
 			}
 		}
 
@@ -211,17 +198,17 @@ if (!class_exists('ctt')) {
 			return $buttons;
 		}
 
-		public function tinymce_register_plugin( $plugin_array ) {
-			$plugin_array['ctt'] = plugins_url( 'js/ctt.js', dirname(__FILE__ ));
+		public function tinymce_register_plugin($plugin_array) {
+			$plugin_array['ctt'] = plugins_url('js/ctt.js', __DIR__);
 			return $plugin_array;
 		}
 
 		/**
 		 * Admin: Add settings link to plugin management page
 		 */
-		public function plugin_settings_link( $actions, $file ) {
-			if ( false !== strpos( $file, 'ctt' ) ) {
-				$actions['settings'] = '<a href="options-general.php?page=ctt">'.__('Settings', 'click-to-tweet').'</a>';
+		public function plugin_settings_link($actions, $file) {
+			if (false !== strpos($file, 'ctt')) {
+				$actions['settings'] = '<a href="options-general.php?page=ctt">' . __('Settings', 'click-to-tweet') . '</a>';
 			}
 			return $actions;
 		}
@@ -230,64 +217,64 @@ if (!class_exists('ctt')) {
 		 * Admin: Add Link to sidebar admin menu
 		 */
 		public function admin_menu() {
-			add_action( 'admin_init', array( $this, 'register_settings' ) );
-			add_options_page( 'Click To Tweet Options', 'Click To Tweet', 'manage_options', 'ctt', array($this,'settings_page') );
+			add_action('admin_init', [$this, 'register_settings']);
+			add_options_page('Click To Tweet Options', 'Click To Tweet', 'manage_options', 'ctt', [$this,'settings_page']);
 		}
 
 		public function get_ibox_data($ary, $index, $data) {
-			return $ary['template_'.$index][$data];
+			return $ary['template_' . $index][$data];
 		}
-		/**Admin Options*/
+		// Admin Options
 		public function settings_page() {
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'ctt-admin-options.php';
+			require_once plugin_dir_path(__DIR__) . 'ctt-admin-options.php';
 		}
 
 		/**
 		 * Admin: Whitelist the settings used on the settings page
 		 */
 		public function register_settings() {
-			register_setting( 'ctt-options', 'twitter-handle', array( $this, 'validate_settings' ) );
-			register_setting( 'ctt-options', 'ctt-token', array( $this, 'validate_settings' ) );
+			register_setting('ctt-options', 'twitter-handle', [$this, 'validate_settings']);
+			register_setting('ctt-options', 'ctt-token', [$this, 'validate_settings']);
 		}
 
 		/**
 		 * Admin: Validate settings
 		 */
-		public function validate_settings( $input ) {
-			return str_replace( '@', '', strip_tags( stripslashes( $input ) ) );
+		public function validate_settings($input) {
+			return str_replace('@', '', strip_tags(stripslashes($input)));
 		}
 
 		/**
 		 * Add CSS needed for styling the plugin
 		 */
 		public function add_css() {
-			wp_register_style( 'ctt', plugins_url( '/css/ctt-module-design.css', dirname( __FILE__ ) ) ); /*for fronend design we use style.css in css folder*/
-			wp_enqueue_style( 'ctt' );
+			wp_register_style('ctt', plugins_url('/css/ctt-module-design.css', __DIR__)); // for fronend design we use style.css in css folder
+			wp_enqueue_style('ctt');
 
-			wp_register_script( 'ctt_plug_script', plugins_url( '/js/ctt-script.js', dirname( __FILE__ ) ), '', '1.0.0', true);
+			wp_register_script('ctt_plug_script', plugins_url('/js/ctt-script.js', __DIR__), '', '1.0.0', true);
 			wp_enqueue_script('ctt_plug_script');
 		}
 
-		public function ctt_admin_style(){
-			if( is_admin() ) {
-			wp_register_style( 'ctt_admin_style', plugins_url( '/css/ctt-admin-style.css', dirname( __FILE__ ) ) );
-			wp_enqueue_style( 'ctt_admin_style' );
+		public function ctt_admin_style() {
+			if (is_admin()) {
+				wp_register_style('ctt_admin_style', plugins_url('/css/ctt-admin-style.css', __DIR__));
+				wp_enqueue_style('ctt_admin_style');
 
-			wp_enqueue_script( 'custom-script-handle', plugins_url( 'js/ctt-script.js', dirname( __FILE__ ) ), '', false, true );
+				wp_enqueue_script('custom-script-handle', plugins_url('js/ctt-script.js', __DIR__), '', false, true);
 			}
 		}
 
-		/* Shorten text length to 100 characters. */
-		public function shorten( $input, $length, $ellipses = true, $strip_html = true ) {
-			if ( $strip_html ) {
-				$input = strip_tags( $input );
+		// Shorten text length to 100 characters.
+		public function shorten($input, $length, $ellipses = true, $strip_html = true) {
+			if ($strip_html) {
+				$input = strip_tags($input);
 			}
-			if ( strlen( $input ) <= $length ) {
+			if (strlen($input) <= $length) {
 				return $input;
 			}
-			$last_space = strrpos( substr( $input, 0, $length ), ' ' );
-			$trimmed_text = substr( $input, 0, $last_space );
-			if ( $ellipses ) {
+			$last_space = strrpos(substr($input, 0, $length), ' ');
+			$trimmed_text = substr($input, 0, $last_space);
+			if ($ellipses) {
 				$trimmed_text .= '...';
 			}
 
@@ -297,49 +284,61 @@ if (!class_exists('ctt')) {
 		/**
 		 * Replacement of Tweet tags with the correct HTML
 		 */
-		public function tweet( $matches ) {
-			$handle = get_option( 'twitter-handle' );
-			if ( !empty( $handle ) ) {
-				$handle_code = "&via=" . $handle;
+		public function tweet($matches) {
+			$handle = get_option('twitter-handle');
+			if (!empty($handle)) {
+				$handle_code = '&via=' . $handle;
 			} else {
 				$handle_code = '';
 			}
 			$text = $matches[1];
-			$short = $this->shorten( $text, 100 );
+			$short = $this->shorten($text, 100);
 
-			return "<div style='clear:both'></div><div class='click-to-tweet'><div class='ctt-text'><a href='https://twitter.com/share?text=" . urlencode( $short ) . $handle_code . "&url=" . get_permalink() . "' target='_blank'>" . $short . "</a></div><a href='https://twitter.com/share?text=" . urlencode( $short ) . "" . $handle_code . "&url=" . get_permalink() . "' target='_blank' class='ctt-btn'>Click To Tweet</a><div class='ctt-tip'></div></div>";
+			return '<div style=\'clear:both\'></div><div class=\'click-to-tweet\'><div class=\'ctt-text\'><a href=\'https://twitter.com/share?text=' . urlencode($short) . $handle_code . '&url=' . get_permalink() . '\' target=\'_blank\'>' . $short . '</a></div><a href=\'https://twitter.com/share?text=' . urlencode($short) . '' . $handle_code . '&url=' . get_permalink() . '\' target=\'_blank\' class=\'ctt-btn\'>Click To Tweet</a><div class=\'ctt-tip\'></div></div>';
 		}
 
-		/*
-		*Replacement of Tweet tags with the correct HTML for a rss feed
-		*/
-		public function tweet_feed( $matches ) {
-			$handle = get_option( 'twitter-handle' );
-			if ( !empty( $handle ) ) {
-				$handle_code = "&via=" . $handle;
+		// Replacement of Tweet tags with the correct HTML for a rss feed
+		public function tweet_feed($matches) {
+			$handle = get_option('twitter-handle');
+			if (!empty($handle)) {
+				$handle_code = '&via=' . $handle;
 			} else {
 				$handle_code = '';
 			}
 			$text = $matches[1];
-			$short = $this->shorten( $text, 100 );
-			return "<hr><p><em>" . $short . "</em><br><a href='https://twitter.com/share?text=" . urlencode( $short ) . $handle_code . "&url=" . get_permalink() . "' target='_blank'>Click To Tweet</a></p><hr>";
+			$short = $this->shorten($text, 100);
+			return '<hr><p><em>' . $short . '</em><br><a href=\'https://twitter.com/share?text=' . urlencode($short) . $handle_code . '&url=' . get_permalink() . '\' target=\'_blank\'>Click To Tweet</a></p><hr>';
 		}
 
 		/**
 		 * Regular expression to locate tweet tags
 		 */
-		public function replace_tags( $content ) {
+		public function replace_tags($content) {
 			if (is_feed()) {
-				return preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet_feed' ), $content );
+				return preg_replace_callback('/\\[tweet "(.*?)"]/i', [$this, 'tweet_feed'], $content);
 			}
-			return preg_replace_callback( "/\[tweet \"(.*?)\"]/i", array( $this, 'tweet' ), $content );
+			return preg_replace_callback('/\\[tweet "(.*?)"]/i', [$this, 'tweet'], $content);
 		}
 
 		/**
 		 * Cache bust tinymce
 		 */
-		public function refresh_mce( $ver ) {
+		public function refresh_mce($ver) {
 			return $ver + 3;
+		}
+
+		// Upload function on Twitter APP
+		private function send_image_to_twitter($image_path, $image_url) {
+			$wptoken = get_option('ctt-token');
+			$image_name = basename($image_path);
+			$url = 'https://ctt.ec/twitter/pluginPostImage?image=' . $image_url . '&wptoken=' . $wptoken;
+			$request = wp_remote_get($url);
+			$response = wp_remote_retrieve_body($request);
+
+			if ($response != '') {
+				return $response;
+			}
+			return $image_url;
 		}
 	}
 }

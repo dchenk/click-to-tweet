@@ -4,7 +4,7 @@
 		init: function(ed, url) {
 			const s = new URLSearchParams(window.location.search);
 			ed.addButton("ctt", {
-				title: "Click To Tweet Plugin",
+				title: "Click To Tweet",
 				image: url.replace("/js", "") + "/images/editor-icon.png",
 				onclick: function() {
 					const seltxt = showSelection();
@@ -24,7 +24,7 @@
 		},
 		createControl: (n, cm) => null,
 		getInfo: () => ({
-			longname: "Click To Tweet Plugin",
+			longname: "Click To Tweet",
 			author: "ClickToTweet.com",
 			authorurl: "https://clicktotweet.com",
 			infourl: "https://github.com/dchenk/click-to-tweet",
