@@ -1,6 +1,5 @@
 <?php
 
-// Shortcode handler
 class CTTshortcode extends ctt {
 	private $box_option;
 	private $img_option;
@@ -37,7 +36,7 @@ class CTTshortcode extends ctt {
 			$content = stripslashes($atts['tweet']);
 		}
 
-		extract(shortcode_atts(['link' => '#', 'template' => '','via' => '', 'twthumb' => 0, 'nofollow' => ''], $atts));
+		extract(shortcode_atts(['link' => '#', 'template' => '', 'via' => '', 'twthumb' => 0, 'nofollow' => ''], $atts));
 		// $via_text 	= (isset($via) && ($via ==  "yes")) ?  " ".$this->tw_handler['ctt-handler'] : "";
 		$is_follow = (isset($nofollow) && ($nofollow == 'yes')) ? ' rel="nofollow"' : '';
 		// $short_link = ( 1 == get_option( 'ctt-short-url' ) ) ? " ".get_permalink()." " : "";
@@ -54,8 +53,8 @@ class CTTshortcode extends ctt {
 	}
 
 	public function ctt_author_handler($atts, $content = '') {
-		extract(shortcode_atts(['link' => 'default-coverup','template' => '','via' => '','author' => 0, 'name' => '', 'nofollow' => ''], $atts));
-		$via_text = (isset($via) && ($via == 'yes')) ?  ' ' . $this->tw_handler['ctt-handler'] : '';
+		extract(shortcode_atts(['link' => 'default-coverup', 'template' => '', 'via' => '', 'author' => 0, 'name' => '', 'nofollow' => ''], $atts));
+		$via_text = (isset($via) && ($via == 'yes')) ? ' ' . $this->tw_handler['ctt-handler'] : '';
 		$is_follow = (isset($nofollow) && ($nofollow == 'yes')) ? ' rel="nofollow"' : '';
 
 		$thumb = wp_get_attachment_url($author);
@@ -64,12 +63,14 @@ class CTTshortcode extends ctt {
 		$block = '<p class="ctt-font-' . $this->author_txt_size($template) . '">' . $content . '</p>';
 		if ($template == 1) {
 			$tpl = 'author-first-inner';
-		} elseif ($template == 2) {
-			$tpl = 'author-second-inner';
 		} else {
-			$tpl = 'author-third-inner';
-			$block = '<blockquote class="style1"><p class="ctt-font-' . $this->author_txt_size($template) . '">' . $content . '<a href="http://ctt.ec/' . $link . '"><span class="tw-ico"></span></a></p></blockquote>';
-			$anc = '';
+			if ($template == 2) {
+				$tpl = 'author-second-inner';
+			} else {
+				$tpl = 'author-third-inner';
+				$block = '<blockquote class="style1"><p class="ctt-font-' . $this->author_txt_size($template) . '">' . $content . '<a href="http://ctt.ec/' . $link . '"><span class="tw-ico"></span></a></p></blockquote>';
+				$anc = '';
+			}
 		}
 		$aut_name = (isset($name) && !empty($name)) ? $name : $this->box_author($template);
 		return '<div class="' . $tpl . '">
@@ -80,7 +81,7 @@ class CTTshortcode extends ctt {
 	}
 
 	public function ctt_ibox_handler($atts, $content = null) {
-		extract(shortcode_atts(['tweet' => '', 'template' => '','via' => '','thumb' => 0, 'nofollow' => ''], $atts));
+		extract(shortcode_atts(['tweet' => '', 'template' => '', 'via' => '', 'thumb' => 0, 'nofollow' => ''], $atts));
 		$via_text = (isset($via) && ($via == 'yes')) ? ' ' . $this->tw_handler['ctt-handler'] : '';
 		$is_follow = (isset($nofollow) && ($nofollow == 'yes')) ? ' rel="nofollow"' : '';
 
@@ -101,7 +102,7 @@ class CTTshortcode extends ctt {
 	}
 
 	public function ctt_hbox_handler($atts, $content = null) {
-		extract(shortcode_atts(['link' => '#',  'nofollow' => ''], $atts));
+		extract(shortcode_atts(['link' => '#', 'nofollow' => ''], $atts));
 		$is_follow = (isset($nofollow) && ($nofollow == 'yes')) ? ' rel="nofollow"' : '';
 		ob_start();
 		return '<span class="click_hint"><a href="http://ctt.ec/' . $link . '" class="' . $this->hint_option['background'] . '-type color_' . $this->hint_option['color'] . '" ' . $is_follow . '><span class="click-text_hint">' . $content . '<i></i></span><span class="tweetdis_hint_icon"></span></a></span>';

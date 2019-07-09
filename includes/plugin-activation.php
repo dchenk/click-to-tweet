@@ -1,10 +1,10 @@
 <?php
 
-// RUN during plugin activation
 class ctt_activation {
 	public static function activate() {
 		self::check_options();
 	}
+
 	private static function check_options() {
 		if (!get_option('ctt_box_setting')) {
 			$box_styles = self::set_box_styles();
@@ -15,7 +15,7 @@ class ctt_activation {
 			add_option('ctt_image_setting', $image_styles);
 		}
 		if (!get_option('ctt_hint_box')) {
-			add_option('ctt_hint_box', ['style' => 'background','color' => 1]);
+			add_option('ctt_hint_box', ['style' => 'background', 'color' => 1]);
 		}
 	}
 
@@ -30,7 +30,7 @@ class ctt_activation {
 			['#4ac5e6', '#c3d7df', '#e2d893'],
 		];
 		for ($i = 1; $i < 16; $i++) {
-			$ref_key = ($i < 13)? 'box_' : 'atr_';
+			$ref_key = ($i < 13) ? 'box_' : 'atr_';
 			$key = $ref_key . $i;
 			$colors = [];
 			if ($i < 6) {

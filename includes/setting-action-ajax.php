@@ -9,6 +9,7 @@ class ctt_load_ajax extends ctt {
 		add_action('wp_ajax_ctt_hint_box_settings', [$this, 'ctt_hint_box_settings']);
 		add_action('wp_ajax_ctt_tweet_settings', [$this, 'ctt_tweet_settings']);
 	}
+
 	public function ctt_box_settings() {
 		$data = $_POST['data'];
 		$dary = [];
@@ -23,19 +24,20 @@ class ctt_load_ajax extends ctt {
 					'color_number'                         => $dary['cta-txt-color'],
 				];
 			} else {
-				$_box['box_' . $tpl] = ['callforaction' => $dary['cta-txt'],'font_size' => $dary['ctt-font']];
+				$_box['box_' . $tpl] = ['callforaction' => $dary['cta-txt'], 'font_size' => $dary['ctt-font']];
 			}
 		}
 		update_option('ctt_box_setting', $_box);
 		die;
 	}
+
 	public function ctt_auth_box_settings() {
 		$dary = $_POST['data'];
 		$data = [];
 		parse_str($dary, $data);
 		$tpl = $data['template'];
 		$auth_meta = get_option('ctt_box_setting');
-		$auth_meta['atr_' . $tpl] = ['callforaction' => $data['cta-txt'],'font_size' => $data['auth-ctt-font'],'author' => $data['cta-author']];
+		$auth_meta['atr_' . $tpl] = ['callforaction' => $data['cta-txt'], 'font_size' => $data['auth-ctt-font'], 'author' => $data['cta-author']];
 		update_option('ctt_box_setting', $auth_meta);
 		echo 'Settings Saved';
 		wp_die();
