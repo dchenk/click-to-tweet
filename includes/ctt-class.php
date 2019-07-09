@@ -23,7 +23,7 @@ if (!class_exists('ctt')) {
 		 * Handles uninstallation tasks, such as deleting plugin options.
 		 */
 		public function uninstall() {
-			delete_option('twitter-handle');
+			delete_option('ctt-twitter-handle');
 		}
 
 		/**
@@ -233,7 +233,7 @@ if (!class_exists('ctt')) {
 		 * Admin: Whitelist the settings used on the settings page
 		 */
 		public function register_settings() {
-			register_setting('ctt-options', 'twitter-handle', [$this, 'validate_settings']);
+			register_setting('ctt-options', 'ctt-twitter-handle', [$this, 'validate_settings']);
 			register_setting('ctt-options', 'ctt-token', [$this, 'validate_settings']);
 		}
 
@@ -285,7 +285,7 @@ if (!class_exists('ctt')) {
 		 * Replacement of Tweet tags with the correct HTML
 		 */
 		public function tweet($matches) {
-			$handle = get_option('twitter-handle');
+			$handle = get_option('ctt-twitter-handle');
 			if (!empty($handle)) {
 				$handle_code = '&via=' . $handle;
 			} else {
@@ -299,7 +299,7 @@ if (!class_exists('ctt')) {
 
 		// Replacement of Tweet tags with the correct HTML for a rss feed
 		public function tweet_feed($matches) {
-			$handle = get_option('twitter-handle');
+			$handle = get_option('ctt-twitter-handle');
 			if (!empty($handle)) {
 				$handle_code = '&via=' . $handle;
 			} else {
