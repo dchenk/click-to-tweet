@@ -5,7 +5,10 @@ jobs:
       - image: circleci/php:7.2
     steps:
       - checkout
-      - run: wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.15.1/php-cs-fixer.phar -O php-cs-fixer
+      - run: |
+          wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.15.1/php-cs-fixer.phar -O php-cs-fixer
+          chmod u+x php-cs-fixer
+          php-cs-fixer --diff --verbose --allow-risky=yes fix .
 workflows:
   build_and_test:
     jobs:
