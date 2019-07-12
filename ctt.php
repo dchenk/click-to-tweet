@@ -23,7 +23,7 @@ function call_ctt_class() {
 	require_once $dirPath . 'includes/ctt-shortcode.php';
 	require_once $dirPath . 'includes/setting-action-ajax.php';
 	new ctt_load_ajax;
-	return new CTTshortcode();
+return new CTTshortcode();
 }
 
 call_ctt_class();
