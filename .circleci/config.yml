@@ -1,6 +1,12 @@
 version: 2.1
 jobs:
-  lint:
+  build:
+    docker:
+      - image: circleci/php:7.2
+    steps:
+      - checkout
+      - run: echo "Nothing to do"
+  test:
     docker:
       - image: circleci/php:7.2
     steps:
