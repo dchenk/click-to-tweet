@@ -1,15 +1,17 @@
 version: 2.1
 jobs:
-  test:
+  lint:
     docker:
       - image: circleci/php:7.2
     steps:
       - checkout
-      - run: |
-          wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.15.1/php-cs-fixer.phar -O php-cs-fixer
-          chmod u+x php-cs-fixer
-          ./php-cs-fixer --allow-risky=yes --dry-run fix
+      - run:
+          name: lint
+          command: |
+            wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.15.1/php-cs-fixer.phar -O php-cs-fixer
+            chmod u+x php-cs-fixer
+            ./php-cs-fixer --allow-risky=yes --dry-run fix
 workflows:
   build_and_test:
     jobs:
-      - test
+      - lint
