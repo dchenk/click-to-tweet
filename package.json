@@ -1,0 +1,25 @@
+{
+  "name": "click-to-tweet",
+  "version": "1.0.0",
+  "description": "=== Click To Tweet ===",
+  "main": "js/ctt-block.js",
+  "scripts": {
+    "build": "wp-scripts build js/ctt-block.js --output-path=js --output-filename=ctt-block.min.js",
+    "start": "wp-scripts start js/ctt-block.js --output-path=js --output-filename=ctt-block.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dchenk/click-to-tweet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dchenk/click-to-tweet/issues"
+  },
+  "homepage": "https://github.com/dchenk/click-to-tweet#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "3.3.0"
+  },
+  "dependencies": {}
+}

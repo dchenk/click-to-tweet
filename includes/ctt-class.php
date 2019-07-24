@@ -33,6 +33,8 @@ if (!class_exists('ctt')) {
 			add_action('wp_enqueue_scripts', [$this, 'add_css']);
 			add_action('admin_enqueue_scripts', [$this, 'ctt_admin_style']);
 			add_filter('the_content', [$this, 'replace_tags']);
+			//Add Gutenberg Block
+			add_action('init', [$this, 'gutenberg_block']);
 		}
 
 		/**
@@ -59,7 +61,22 @@ if (!class_exists('ctt')) {
 		}
 
 		public function ctt_show_dialog_callback() {
-			$ajax_nonce = wp_create_nonce('ctt_nonce_string');
+			wp_enqueue_media();
+
+			wp_register_style('ctt-dialog', plugins_url('/css/design-box-style.css', __DIR__));
+			wp_enqueue_style('ctt-dialog');
+
+			wp_register_script('tiny_mce_popup', includes_url('/js/tinymce/tiny_mce_popup.js'));
+			wp_enqueue_script('tiny_mce_popup');
+
+			wp_register_script('ctt-dialog', plugins_url('/js/ctt-dialog.js', __DIR__), ['jquery']);
+			wp_enqueue_script('ctt-dialog');
+			wp_localize_script(
+				'ctt-dialog',
+				'ajax_var',
+				['ajax_nonce' => wp_create_nonce('ctt_nonce_string'),'url' => get_site_url()]
+			);
+
 			$token = get_option('ctt-token');
 			$res = wp_remote_get('https://ctt.ec/Wp/listCTTs?token=' . $token);
 			if (is_wp_error($res)) {
@@ -251,7 +268,7 @@ if (!class_exists('ctt')) {
 			wp_register_style('ctt', plugins_url('/css/ctt-module-design.css', __DIR__)); // for fronend design we use style.css in css folder
 			wp_enqueue_style('ctt');
 
-			wp_register_script('ctt_plug_script', plugins_url('/js/ctt-script.js', __DIR__), '', '1.0.0', true);
+			wp_register_script('ctt_plug_script', plugins_url('/js/ctt-script.js', __DIR__), ['jquery'], '1.0.0', true);
 			wp_enqueue_script('ctt_plug_script');
 		}
 
@@ -260,7 +277,7 @@ if (!class_exists('ctt')) {
 				wp_register_style('ctt_admin_style', plugins_url('/css/ctt-admin-style.css', __DIR__));
 				wp_enqueue_style('ctt_admin_style');
 
-				wp_enqueue_script('custom-script-handle', plugins_url('js/ctt-script.js', __DIR__), '', false, true);
+				wp_enqueue_script('custom-script-handle', plugins_url('js/ctt-script.js', __DIR__), ['jquery'], false, true);
 			}
 		}
 
@@ -325,6 +342,84 @@ if (!class_exists('ctt')) {
 		 */
 		public function refresh_mce($ver) {
 			return $ver + 3;
+		}
+
+		public function gutenberg_block() {
+			if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
+				return;
+			}
+			if (function_exists('register_block_type')) {
+				if (is_admin()) {
+					wp_register_script('block_handler_script', plugins_url('/js/ctt-block.min.js', __DIR__), ['jquery','wp-element', 'wp-blocks','wp-components','wp-compose','wp-i18n','wp-editor']);
+					wp_localize_script('block_handler_script', 'ajax_var', [
+						'sampleImage'       => plugins_url('/images/sample-image.jpg', __DIR__),
+						'authorSampleImage' => plugins_url('/images/timface.jpeg', __DIR__),
+						'hintBox'           => [
+							'background' => get_option('ctt_hint_box')['background'],
+							'color'      => get_option('ctt_hint_box')['color'],
+						],
+						'ajax_nonce' => wp_create_nonce('ctt_nonce_string'),
+						'url'        => get_site_url(),
+						'admin_url'  => get_admin_url(),
+						'token'      => get_option('ctt-token'),
+					]);
+					wp_register_style('block_handler_style', plugins_url('/css/ctt-block.css', __DIR__));
+				}
+				register_block_type('ctt/block', [
+					'editor_script' => 'block_handler_script',
+					'editor_style'  => 'block_handler_style',
+					'attributes'    => ['submit' => ['type' => 'boolean', 'default' => false],
+						'submitProcessing'          => ['type' => 'boolean', 'default' => false],
+						'generated'                 => ['type' => 'boolean', 'default' => false],
+						'tweetText'                 => ['type' => 'string'],
+						'displayText'               => ['type' => 'string'],
+						'userName'                  => ['type' => 'boolean'],
+						'postLink'                  => ['type' => 'boolean'],
+						'imageBoxMediaID'           => ['type' => 'string'],
+						'imageBoxMediaUrl'          => ['type' => 'string', 'default' => ''],
+						'authorMediaID'             => ['type' => 'string'],
+						'authorMediaUrl'            => ['type' => 'string', 'default' => ''],
+						'authorName'                => ['type' => 'string'],
+						'boxType'                   => ['type' => 'string', 'default' => '1'],
+						'boxTypeSelect_1'           => ['type' => 'string', 'default' => '1'],
+						'boxTypeSelect_2'           => ['type' => 'string', 'default' => '1'],
+						'boxTypeSelect_3'           => ['type' => 'string', 'default' => '1'],
+						'boxTypeSelect_4'           => ['type' => 'string', 'default' => '1'],
+						'tweetCoverup'              => ['type' => 'string'],
+						'tweetWithImage'            => ['type' => 'string'],
+					],
+					'render_callback' => [$this, 'renderBlock'],
+				]);
+			}
+		}
+
+		public function renderBlock($attributes) {
+			$outputShortcode = '';
+			if (isset($attributes['tweetCoverup']) || isset($attributes['tweetWithImage'])) {
+				$boxType = $attributes['boxType'] ?? 1;
+				$valselected = $attributes['boxTypeSelect_' . $boxType] ?? 1;
+				$via_text = 'via="no"';
+				$ctt_flow = '';
+				if ($attributes['userName'] ?? false) {
+					$via_text = 'via="yes"';
+				}
+				$cttDisplay = $attributes['displayText'] ?? '' ;
+				switch (intval($boxType)) {
+					case 1:
+						$outputShortcode = '[ctt template="' . $valselected . '" link="' . $attributes['tweetCoverup'] . '" ' . $via_text . ' ' . $ctt_flow . ']' . $cttDisplay . '[/ctt]';
+						break;
+					case 2:
+						$outputShortcode = '[ctt_hbox link="' . $attributes['tweetCoverup'] . '" ' . $via_text . ' ' . $ctt_flow . ']' . $cttDisplay . '[/ctt_hbox]';
+						break;
+					case 3:
+						$outputShortcode = '[ctt_ibox thumb="' . $attributes['imageBoxMediaID'] . '" template="' . $valselected . '" ' . $via_text . ' ' . $ctt_flow . ']' . $cttDisplay . '[/ctt_ibox]';
+						break;
+					case 4:
+						$outputShortcode = '[ctt_author author="' . $attributes['authorMediaID'] . '" name="' . $attributes['authorName'] . '" template="' . $valselected . '" link="' . $attributes['tweetCoverup'] . '" ' . $via_text . ' ' . $ctt_flow . ']' . $cttDisplay . '[/ctt_author]';
+						break;
+				}
+			}
+			return  do_shortcode($outputShortcode);
 		}
 
 		// Upload function on Twitter APP

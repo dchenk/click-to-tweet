@@ -1,0 +1,89 @@
+@import url("design-box-style.css");
+
+.box_container .tweet-box p {
+    font-size: 12px !important;
+    line-height: 17px !important;
+}
+
+.box_container .thumb {
+    width: 33px !important;
+    height: 33px !important;
+}
+
+.box_container .tweet-text p {
+    font-size: 12px !important;
+}
+
+.box_container .lower-btn > label {
+    font-size: 10px !important;
+}
+
+.box_container .lower-btn > a {
+    font-size: 10px !important;
+    background-position: 15px 8px !important;
+}
+
+.box_container .tweet-box {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+ .tweet-box {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.tweet-box label {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.col-preview {
+    margin-top: 0 !important;
+    float: none !important;
+    width: 100% !important;
+}
+
+.auth-box-one .col-preview {
+    width: 100% !important;
+}
+
+.col-preview label {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+}
+
+.author-box {
+    display: none !important;
+}
+
+.msgToTweet p {
+    font-size: 12px !important;
+    color: #0050e6;
+}
+
+.uploadPreview {
+    max-width: 200px !important;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.uploadCOn {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 90px;
+}
+
+.uploadError {
+    font-size: 14px !important;
+    margin-bottom: 14px !important;
+    margin-left: 0 !important;
+}
+
+.check-token {
+    background: #ffffff;
+    height: 100%;
+    margin-top: 50px;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
